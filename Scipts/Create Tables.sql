@@ -14,7 +14,7 @@ CREATE TABLE [Dogs] (
   [Breed] NVARCHAR(100),
   [ReqDistance] INT not null,
   [Walking time] INT not null,
-  [SpecialRequests] NVARCHAR
+  [SpecialRequests] NVARCHAR (250)
 );
 GO
 CREATE TABLE [Walks] (
