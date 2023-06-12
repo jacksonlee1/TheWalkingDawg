@@ -10,7 +10,7 @@ using Models.User;
 
 
 
-namespace Services.UserServices
+namespace Services.User
 {
     public class UserService:IUserService
     {
@@ -25,8 +25,10 @@ namespace Services.UserServices
 
 
         public async Task<bool> RegisterUserAsync(UserRegister model)
-        {
-
+        {  
+            if(GetUserByUserNameAsync(model.Username) is null )return false;
+           
+           
             var entity = new UserEntity{
                 Username =model.Username,
                 Address = model.Address,
@@ -43,12 +45,12 @@ namespace Services.UserServices
 
         }
 
-        public async Task<UserEntity> GetUserByUserNameAsync(string username)
+        public async Task<UserEntity?> GetUserByUserNameAsync(string username)
         {
             return await _db.Users.FirstOrDefaultAsync(u => u.Username.ToLower() == username.ToLower());
         }
 
-        public async Task<UserEntity> GetUserByIdAsync(int id)
+        public async Task<UserEntity?> GetUserByIdAsync(int id)
         {
             return await _db.Users.FindAsync(id);
            

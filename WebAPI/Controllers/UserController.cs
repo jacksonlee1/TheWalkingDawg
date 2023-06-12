@@ -1,32 +1,67 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Models.Token;
+using Models.User;
+using Services.Token;
+using Services.User;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace WebAPI.Controllers
 {
-    [Route("[controller]")]
-    public class UserController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly IUserService _service;
+        private readonly ITokenService _tokenService;
+        public UserController(IUserService service, ITokenService tokenService)
 
-        public UserController(ILogger<UserController> logger)
         {
-            _logger = logger;
+            _service = service;
+            _tokenService = tokenService;
+        }
+        [HttpPost("Register")]
+        public async Task<IActionResult> RegisterUser([FromBody] UserRegister user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _service.RegisterUserAsync(user);
+            if (result)
+            {
+                return Ok("User Registered Succesfully");
+            }
+            return BadRequest("User could not be registered");
+        }
+       
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetById([FromRoute]int id){
+            var user =  await _service.GetUserByIdAsync(id);
+            if(user!=null){
+                return Ok(user);
+            }
+            return NotFound("User Not Found");
         }
 
-        public IActionResult Index()
+        [HttpPost("~/api/Token")]
+        public async Task<IActionResult> Token([FromBody] TokenRequest request)
         {
-            return View();
-        }
+            if(!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
+            var tokenResponse = await _tokenService.GetTokenAsync(request);
+            if(tokenResponse is null)
+                return BadRequest("Invalid Username or Password");
+            return Ok(tokenResponse);
+            
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
+
         }
     }
 }

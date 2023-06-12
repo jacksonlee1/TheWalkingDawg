@@ -3,7 +3,7 @@ using Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Services.UserServices;
+using Services.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
