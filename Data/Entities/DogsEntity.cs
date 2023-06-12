@@ -11,8 +11,10 @@ public class DogsEntity
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("Users")]
-        public int OwnerID { get; set; }
+        [ForeignKey(nameof(Owner))]
+        public int OwnerId { get; set; }
+
+        public virtual UserEntity Owner{get;set;}
 
         [Required]
         [MaxLength(100)]

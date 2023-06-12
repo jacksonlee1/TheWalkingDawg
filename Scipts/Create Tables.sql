@@ -32,6 +32,7 @@ go
 CREATE TABLE [Ratings] (
   [Id] int not null PRIMARY KEY IDENTITY(1,1),
   [WalkId] int FOREIGN KEY REFERENCES Walks(Id),
+  [OwnerId] int FOREIGN KEY REFERENCES Users(Id),
   [Score] Float not null,
   [Comment] NVarChar(1000)
 );

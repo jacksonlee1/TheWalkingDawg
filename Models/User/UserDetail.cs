@@ -13,5 +13,7 @@ namespace Models.User
         public string Address {get;set;}
         public string PhoneNum{get;set;}
 
+    
+
     }
 }
