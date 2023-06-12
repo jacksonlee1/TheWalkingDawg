@@ -13,7 +13,7 @@ CREATE TABLE [Dogs] (
   [Name] NvarChar(100),
   [Breed] NVARCHAR(100),
   [ReqDistance] INT not null,
-  [Walking time] INT not null,
+  [WalkingTime] INT not null,
   [SpecialRequests] NVARCHAR
 );
 GO
@@ -23,7 +23,7 @@ CREATE TABLE [Walks] (
   [DistanceWalked] Float not null,
   [Lat] Float,
   [Long] Float,
-  [Walker name] NvarChar(100),
+  [WalkerName] NvarChar(100),
   [OutsideTemp] Int,
   [WalkStarted] Datetime not null,
   [WalkEnded] Datetime

@@ -9,13 +9,19 @@ namespace Models.User
     public class UserRegister
     {
         [Required]
-        public string Email{get;set;}
-        [Required]
-        public string Password{get;set;}
+        public string Username { get; set; } 
 
-        public string? FirstName{get;set;}
-        public string? LastName{get;set;}
-        
+        [Required]
+        public string Password { get; set; } 
+
+        [Required]
+        public string PhoneNum { get; set; } 
+
+        [Required]
+        public string Address { get; set; } 
+
+        [Required]
+        public string Name {get;set;}
 
 
         
