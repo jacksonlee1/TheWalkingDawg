@@ -30,10 +30,9 @@ public class DogService : IDogService
         return numberOfChanges == 1;
     }
 
-    public async Task<IEnumerable<DogDetail>> GetAllDogsAsync(int id)
+    public async Task<IEnumerable<DogDetail>> GetAllDogsAsync()
     {
         var dogs = await _context.Dogs
-        .Where(entity => entity.OwnerID == id)
         .Select(entity => new DogDetail
         {
             OwnerID = entity.OwnerID,

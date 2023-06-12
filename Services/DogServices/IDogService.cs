@@ -8,5 +8,5 @@ public interface IDogService
 {
     Task<bool> CreateDogAsync(DogCreate model);
 
-    Task<IEnumerable<DogDetail>> GetAllDogsAsync(int id);
+    Task<IEnumerable<DogDetail>> GetAllDogsAsync();
 }
