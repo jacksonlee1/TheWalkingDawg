@@ -19,7 +19,7 @@ public class DogController : ControllerBase
         _dogService = dogService;
     }
 
-[HttpPost("Create")]
+[HttpPost("Create")]// create a new dog entry
 
 public async Task<IActionResult>CreateDog([FromBody]DogCreate model)
 {
@@ -36,11 +36,38 @@ public async Task<IActionResult>CreateDog([FromBody]DogCreate model)
         return BadRequest("New dog entry could not be created.");
 }
 
-[HttpGet]
+[HttpGet]//get all dogs
 
 public async Task<IActionResult>GetAllDogs()
 {
     var dogs = await _dogService.GetAllDogsAsync();
     return Ok(dogs);
+}
+
+[HttpGet ("{id:int}")]//Get dog by ID
+
+public async Task<IActionResult>GetById([FromRoute]int id)
+{
+    var dogDetail = await _dogService.GetDogByIdAsync(id);
+
+    if(dogDetail is null)
+    {
+        return NotFound();
+    }
+    return Ok(dogDetail);
+}
+
+[HttpDelete ("{id:int}")] //Delete a dog
+
+public async Task<IActionResult>DeleteDog([FromRoute] int id)
+{
+    var dog = await _dogService.DeleteDogByIdAsync(id);
+
+    if (!dog)
+    {
+        return BadRequest ("Could not delete the dog.");
+    }
+        return Ok();
+
 }
 }

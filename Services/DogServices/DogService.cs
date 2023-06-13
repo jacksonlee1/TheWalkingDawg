@@ -45,4 +45,18 @@ public class DogService : IDogService
         return dogs;
 
     }
+
+    public async Task<DogsEntity>GetDogByIdAsync(int id)
+    {
+        return await _context.Dogs.FindAsync(id);
+    }
+
+    public async Task<bool>DeleteDogByIdAsync(int id)
+    {   var entity = await _context.Dogs.FindAsync(id);
+        _context.Dogs.Remove(entity);
+
+        var numberOfChanges = await _context.SaveChangesAsync();
+
+        return numberOfChanges == 1;
+    }
 }
