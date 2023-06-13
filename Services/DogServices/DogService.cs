@@ -17,7 +17,7 @@ public class DogService : IDogService
     {
         _context = context;
 
-         var userClaims = httpContext.HttpContext.User.Identity as ClaimsIdentity;
+         var userClaims = httpContext.HttpContext.User.Identity as ClaimsIdentity;//getting the user claims
             var value = userClaims?.FindFirst("Id")?.Value;
             var validId = int.TryParse(value, out _userId);
             if (!validId)
