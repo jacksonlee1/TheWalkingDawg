@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Data.Entities;
 using Models.User;
 
-namespace Services.UserServices
+namespace Services.User
 {
     public interface IUserService
     {

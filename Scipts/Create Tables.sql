@@ -13,8 +13,9 @@ CREATE TABLE [Dogs] (
   [Name] NvarChar(100),
   [Breed] NVARCHAR(100),
   [ReqDistance] INT not null,
-  [Walking time] INT not null,
+  [WalkingTime] INT not null,
   [SpecialRequests] NVARCHAR
+
 );
 GO
 CREATE TABLE [Walks] (
@@ -23,7 +24,7 @@ CREATE TABLE [Walks] (
   [DistanceWalked] Float not null,
   [Lat] Float,
   [Long] Float,
-  [Walker name] NvarChar(100),
+  [WalkerName] NvarChar(100),
   [OutsideTemp] Int,
   [WalkStarted] Datetime not null,
   [WalkEnded] Datetime
@@ -32,6 +33,8 @@ go
 CREATE TABLE [Ratings] (
   [Id] int not null PRIMARY KEY IDENTITY(1,1),
   [WalkId] int FOREIGN KEY REFERENCES Walks(Id),
+  [OwnerId] int FOREIGN KEY REFERENCES Users(Id),
   [Score] Float not null,
-  [Comment] NVarChar(1000)
+  [Comment] NVarChar(1000).
+  [WalkerId] int FOREIGN KEY REFERENCES Users(Id)
 );

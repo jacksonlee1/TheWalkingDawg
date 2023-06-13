@@ -12,16 +12,19 @@ namespace Data.Entities
         public int Id { get; set; }
 
         [Required]
-        [EmailAddress]
-        public string Email { get; set; } 
+        public string Username { get; set; } 
 
         [Required]
         public string Password { get; set; } 
 
         [Required]
-        public string? FirstName { get; set; } 
+        public string PhoneNum { get; set; } 
 
         [Required]
-        public string? LastName { get; set; } 
+        public string Address { get; set; } 
+
+        [Required]
+        public string Name {get;set;}        
+        public virtual List<RatingEntity> Ratings {get; set;} =  new();
     }
 }
