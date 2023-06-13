@@ -23,6 +23,7 @@ namespace WebAPI.Controllers
         {
             _service = service;
             _tokenService = tokenService;
+           
         }
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegister user)

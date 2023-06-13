@@ -17,16 +17,27 @@ namespace Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DogsEntity>()
-            .HasOne(d => d.Owner)
-            .WithMany(d => d.Dogs)
-            .HasForeignKey(d => d.OwnerId);
+        //     modelBuilder.Entity<DogsEntity>()
+        //     .HasOne(d => d.Owner)
+        //     .WithMany(d => d.Dogs)
+        //     .HasForeignKey(d => d.OwnerId);
 
-            modelBuilder.Entity<RatingEntity>()
-         .HasOne(r => r.Author)
-         .WithMany(d => d.Ratings)
-         .HasForeignKey(d => d.AuthorId);
+        //     modelBuilder.Entity<RatingEntity>()
+        //  .HasOne(r => r.Owner)
+        //  .WithMany(d => d.Ratings)
+        //  .HasForeignKey(d => d.OwnerId);
 
+    
+
+
+         modelBuilder.Entity<UserEntity>()
+         .HasMany<RatingEntity>(user=>user.Ratings)
+         .WithOne(rating=>rating.Owner)
+         .HasForeignKey(rating => rating.OwnerId);
+
+
+        modelBuilder.Entity<RatingEntity>()
+        .HasOne(r => r.Walker).WithMany(w => w.Ratings).HasForeignKey(r=>r.WalkerId);
         //  modelBuilder.Entity<RatingEntity>()
         //  .HasOne(r=> r.Walk)
         //  .WithMany(r=>r.Ratings)

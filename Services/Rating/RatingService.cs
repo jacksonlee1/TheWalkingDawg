@@ -7,6 +7,7 @@ using Data.Entities;
 using Models.Rating;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 // dotnet add Services package Microsoft.AspNetCore.Http;
 namespace Services.Rating
 {
@@ -30,7 +31,7 @@ namespace Services.Rating
         public async Task<bool> NewRatingAsync(CreateRating model)
         {
             var entity = new RatingEntity(){
-                AuthorId = _userId,
+                OwnerId = _userId,
                 WalkId = model.WalkId,
                 Score = model.Score,
                 Comment = model.Comment
@@ -42,9 +43,19 @@ namespace Services.Rating
         }
         public async Task<RatingEntity> GetRatingByIdAsync(int id)
         {
-           return await _db.Ratings.FindAsync(id);
+           return await _db.Ratings.Include(r=>r.Owner).FirstOrDefaultAsync(r=>r.Id == id);
 
 
+        }
+        public async Task<List<RatingDetail>> GetRatingsAsync()
+        {
+            return await _db.Ratings.Include(r=>r.Owner).Include(r=>r.Walker).Select(r => new RatingDetail
+            {
+                Username = r.Owner.Username,
+                WalkId = r.WalkId,
+                Score = r.Score,
+                Comment = r.Comment
+            }).ToListAsync();
         }
 
         public async Task<bool> DeleteRatingByIdAsync(int id)
@@ -65,5 +76,34 @@ namespace Services.Rating
             return numChanges == 1;
 
         }
+
+        public async Task<IEnumerable<RatingDetail>?> GetRatingsByUserId(int id)
+        {
+            return  await _db.Ratings.Include(r=>r.Owner).Where(r => r.OwnerId == id).Select(r => new RatingDetail
+            {
+                WalkId = r.WalkId,
+                Score = r.Score,
+                Comment = r.Comment,
+                Username = r.Owner.Username
+            }).ToListAsync();
+
+            
+        }
+
+
+          public async Task<IEnumerable<RatingDetail>?> GetRatingsByWalkId(int id)
+        {
+            return  await _db.Ratings.Include(r=>r.Owner).Where(r => r.WalkId == id).Select(r => new RatingDetail
+            {
+                WalkId = r.WalkId,
+                Score = r.Score,
+                Comment = r.Comment,
+                Username = r.Owner.Username
+            }).ToListAsync();
+
+            
+        }
+
+
     }
 }

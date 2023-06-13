@@ -35,11 +35,13 @@ namespace Services.Token
        private async Task<UserEntity> GetValidUserAsync(TokenRequest model){
             var entity = await _context.Users.FirstOrDefaultAsync(u => u.Username.ToLower() == model.Username.ToLower());
             if (entity is null){
+                Console.WriteLine("User not Found");
                 return null;
             }
             var passwordHasher = new PasswordHasher<UserEntity>();
             var verifyPasswordResult = passwordHasher.VerifyHashedPassword(entity, entity.Password,model.Password);
             if(verifyPasswordResult == PasswordVerificationResult.Failed){
+                Console.WriteLine("Password Incorrect");
                 return null;
             }
             return entity;

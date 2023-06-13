@@ -52,7 +52,7 @@ namespace Services.User
 
         public async Task<UserEntity?> GetUserByIdAsync(int id)
         {
-            return await _db.Users.FindAsync(id);
+            return await _db.Users.FirstOrDefaultAsync(x=> x.Id == id);
            
         }
         

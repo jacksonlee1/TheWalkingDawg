@@ -18,15 +18,21 @@ namespace Data.Entities
 
         //public WalkEntity Walk{get;set;}
 
-        [ForeignKey(nameof(Author))]
-        public int AuthorId {get; set;}
+        
+        public int OwnerId {get; set;}
 
-        public virtual UserEntity Author{get;set;}
+        // [ForeignKey("OwnerId")]
+          public virtual UserEntity Owner{get;set;}
+       
         
         [Required]
         public double Score{get;set;}
 
         public string? Comment{get;set;}
+
+        public int WalkerId{get;set;}
+
+        public virtual UserEntity Walker{get;set;}
         
 
     }

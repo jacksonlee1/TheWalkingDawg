@@ -34,5 +34,6 @@ CREATE TABLE [Ratings] (
   [WalkId] int FOREIGN KEY REFERENCES Walks(Id),
   [OwnerId] int FOREIGN KEY REFERENCES Users(Id),
   [Score] Float not null,
-  [Comment] NVarChar(1000)
+  [Comment] NVarChar(1000).
+  [WalkerId] int FOREIGN KEY REFERENCES Users(Id)
 );
