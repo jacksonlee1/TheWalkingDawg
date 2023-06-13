@@ -1,6 +1,8 @@
 
+using System.Security.Claims;
 using Data;
 using Data.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Models.Dogs;
 
@@ -9,19 +11,30 @@ namespace Services.DogServices;
 public class DogService : IDogService
 {
     private readonly ApplicationDbContext _context;
+    private readonly int _userId;
 
-    public DogService(ApplicationDbContext context)
+    public DogService(IHttpContextAccessor httpContext,ApplicationDbContext context)
     {
         _context = context;
+
+         var userClaims = httpContext.HttpContext.User.Identity as ClaimsIdentity;
+            var value = userClaims?.FindFirst("Id")?.Value;
+            var validId = int.TryParse(value, out _userId);
+            if (!validId)
+            {
+                throw new Exception("Attempted to build DogService without User Id Claim");
+            }
     }
 
     public async Task<bool> CreateDogAsync(DogCreate model)
     {
         var entity = new DogsEntity
         {
-            OwnerID = model.OwnerID,
+            OwnerId = _userId,
             Name = model.Name,
-            Breed = model.Breed
+            Breed = model.Breed,
+            ReqDistance = model.ReqDistance,
+            WalkingTime = model.WalkingTime
         };
 
         _context.Dogs.Add(entity);
@@ -32,12 +45,14 @@ public class DogService : IDogService
 
     public async Task<IEnumerable<DogDetail>> GetAllDogsAsync()
     {
-        var dogs = await _context.Dogs
+        var dogs = await _context.Dogs.Include(d=>d.Owner)
         .Select(entity => new DogDetail
         {
-            OwnerID = entity.OwnerID,
+           Id = entity.Id,
             Name = entity.Name,
-
+            Breed = entity.Breed,
+            Username = entity.Owner.Username
+             
 
         })
          .ToListAsync();
@@ -45,6 +60,19 @@ public class DogService : IDogService
         return dogs;
 
     }
+ 
+     public async Task<IEnumerable<DogsEntity>> GetDogsByCurrentUserAsync()
+    {
+        return await _context.Dogs.Where(d=>d.Id==_userId).ToListAsync();
+    }
+    public async Task<IEnumerable<DogsEntity>>GetDogByOwnerIdAsync(int id)
+    {
+        return await _context.Dogs.Where(d=>d.Id==id).ToListAsync();
+    }
+
+
+    //ToDo(Stretch): Get Dogs By Walking Time
+     //ToDo(Stretch): Get Dogs By Walking Distance
 
     public async Task<DogsEntity>GetDogByIdAsync(int id)
     {

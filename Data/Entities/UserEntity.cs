@@ -26,5 +26,6 @@ namespace Data.Entities
         [Required]
         public string Name {get;set;}        
         public virtual List<RatingEntity> Ratings {get; set;} =  new();
+        public virtual List<DogsEntity> Dogs {get; set;} =  new();
     }
 }
