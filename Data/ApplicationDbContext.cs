@@ -14,9 +14,7 @@ namespace Data
         {
 
         }
-     
-        
-
+        public DbSet<WalkingEntity> Walking{get;set;}
         public DbSet<UserEntity> Users{get;set;}
         
     }
