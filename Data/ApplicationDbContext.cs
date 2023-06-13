@@ -15,6 +15,7 @@ namespace Data
 
         }
 
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         //     modelBuilder.Entity<DogsEntity>()
@@ -48,8 +49,10 @@ namespace Data
         public DbSet<UserEntity> Users { get; set; }
 
         public DbSet<DogsEntity> Dogs { get; set; }
+         public DbSet<WalkingEntity> Walking{get;set;}
 
         public DbSet<RatingEntity> Ratings { get; set; }
+
 
     }
 
