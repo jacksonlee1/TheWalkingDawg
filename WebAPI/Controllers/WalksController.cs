@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[Controller]")]
     [ApiController]
-    public class WalksController
+    public class WalksController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
         private readonly IWalksService _walksService;
