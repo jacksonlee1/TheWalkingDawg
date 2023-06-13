@@ -15,6 +15,7 @@ CREATE TABLE [Dogs] (
   [ReqDistance] INT not null,
   [WalkingTime] INT not null,
   [SpecialRequests] NVARCHAR
+
 );
 GO
 CREATE TABLE [Walks] (

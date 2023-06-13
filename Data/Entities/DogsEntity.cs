@@ -30,6 +30,7 @@ public class DogsEntity
         [Required]
         public int WalkingTime { get; set; }
 
+        [MaxLength(250)]
         public string? SpecialRequests {get; set; }
     
 }

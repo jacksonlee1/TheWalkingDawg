@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 using Services.Rating;
 using Services.Token;
 using Services.User;
+using Services.DogServices;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +19,11 @@ builder.Services.AddControllers().AddJsonOptions(options =>
             options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         });
 builder.Services.AddScoped<IUserService,UserService>();
+
 builder.Services.AddScoped<IRatingService,RatingService>();
 builder.Services.AddScoped<ITokenService,TokenService>();
+builder.Services.AddScoped<IDogService,DogService>();
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
