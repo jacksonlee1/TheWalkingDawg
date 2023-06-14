@@ -57,6 +57,19 @@ public async Task<IActionResult>GetById([FromRoute]int id)
     return Ok(dogDetail);
 }
 
+[HttpPut] //takes in the DogUpdate 
+
+public async Task<IActionResult> UpdateDogById([FromBody] DogUpdate request)
+{
+    //validating the model, if isn't valid returns the bad modelstate
+    if(!ModelState.IsValid)
+        return BadRequest(ModelState);
+    //passing the request to the service where it will attempt to update the dog
+    return await _dogService.UpdateDogAsync(request)
+        ? Ok("Dog updated successfully.")
+        : BadRequest("Dog could not be updated");
+}
+
 [HttpDelete ("{id:int}")] //Delete a dog
 public async Task<IActionResult>DeleteDog([FromRoute] int id)
 {
