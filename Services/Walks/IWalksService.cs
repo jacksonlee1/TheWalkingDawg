@@ -10,6 +10,8 @@ namespace Services.Walks
     {
         Task<bool> NewWalkAsync(CreateWalks model);
         Task<IEnumerable<WalksDetail>> GetWalkByDogIdAsync(int DogId);
-        
+        Task<bool> DeleteWalkByIdAsync(int Id);
+        Task<bool> UpdateWalkAsync(int Id);
+
     }
 }

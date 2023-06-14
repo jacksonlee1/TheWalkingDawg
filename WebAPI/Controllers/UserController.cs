@@ -39,7 +39,6 @@ namespace WebAPI.Controllers
             }
             return BadRequest("User could not be registered");
         }
-       
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById([FromRoute]int id){

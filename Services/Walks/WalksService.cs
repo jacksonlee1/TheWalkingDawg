@@ -77,5 +77,10 @@ namespace Services.Walks
             var changed = await _db.SaveChangesAsync();
             return changed == 1;
         }
+
+        public Task<bool> UpdateWalkAsync(int Id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

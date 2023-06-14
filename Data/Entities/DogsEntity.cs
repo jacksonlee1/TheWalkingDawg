@@ -11,6 +11,7 @@ public class DogsEntity
         public int Id { get; set; }
 
         [Required]
+        
         [ForeignKey(nameof(Owner))]
         public int OwnerId { get; set; }
 
@@ -26,7 +27,7 @@ public class DogsEntity
         public string? Breed { get; set; }
 
         [Required]
-        public string? ReqDistance { get; set; }
+        public int ReqDistance { get; set; }
 
         [Required]
         public int WalkingTime { get; set; }
