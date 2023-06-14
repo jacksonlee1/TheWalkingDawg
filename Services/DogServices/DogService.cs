@@ -20,6 +20,7 @@ public class DogService : IDogService
         var entity = new DogsEntity
         {
             OwnerId = model.OwnerId,
+            OwnerId = _userId,
             Name = model.Name,
             Breed = model.Breed
         };
@@ -36,11 +37,12 @@ public class DogService : IDogService
         .Select(entity => new DogDetail
         {
             OwnerId = entity.OwnerId,
+            Id = entity.Id,
             Name = entity.Name,
 
 
         })
-         .ToListAsync();
+        .ToListAsync();
 
         return dogs;
 
