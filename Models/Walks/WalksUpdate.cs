@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace Models.Walks
 {
-    public class WalksDetail
+    public class WalksUpdate
     {
+        public int Id { get; set; }
         public int DogId { get; set; }
 
         public double DistanceWalked { get; set; }
