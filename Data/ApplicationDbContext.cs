@@ -46,6 +46,10 @@ namespace Data
         //  .WithMany(r=>r.Ratings)
         //  .HasForeignKey(r => r.WalkId);
 
+
+        modelBuilder.Entity<WalkingEntity>()
+        .HasOne(w => w.Dog).WithMany(d => d.walks).HasForeignKey(w => w.DogId);
+
         }
 
         public DbSet<UserEntity> Users { get; set; }

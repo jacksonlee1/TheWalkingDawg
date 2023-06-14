@@ -36,9 +36,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetWalkByDogId([FromRoute]int id)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
-
             return Ok(await _walksService.GetWalkByDogIdAsync(id));
-
         }
     }
 }

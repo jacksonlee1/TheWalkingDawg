@@ -58,7 +58,6 @@ public async Task<IActionResult>GetById([FromRoute]int id)
 }
 
 [HttpDelete ("{id:int}")] //Delete a dog
-
 public async Task<IActionResult>DeleteDog([FromRoute] int id)
 {
     var dog = await _dogService.DeleteDogByIdAsync(id);
