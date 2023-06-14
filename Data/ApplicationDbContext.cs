@@ -36,9 +36,11 @@ namespace Data
          .WithOne(rating=>rating.Owner)
          .HasForeignKey(rating => rating.OwnerId);
 
+        modelBuilder.Entity<UserEntity>()
+        .HasMany<DogsEntity>(user => user.Dogs)
+        .WithOne(dog => dog.Owner)
+        .HasForeignKey(dog=>dog.OwnerId);
 
-        modelBuilder.Entity<RatingEntity>()
-        .HasOne(r => r.Walker).WithMany(w => w.Ratings).HasForeignKey(r=>r.WalkerId);
         //  modelBuilder.Entity<RatingEntity>()
         //  .HasOne(r=> r.Walk)
         //  .WithMany(r=>r.Ratings)
