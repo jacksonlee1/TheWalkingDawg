@@ -13,5 +13,7 @@ public interface IDogService
 
     Task<DogsEntity> GetDogByIdAsync(int id);
 
+    Task<bool> UpdateDogAsync(DogUpdate request);
+
     Task<bool> DeleteDogByIdAsync(int id);
 }
