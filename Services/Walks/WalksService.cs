@@ -39,7 +39,7 @@ namespace Services.Walks
 
         public async Task<IEnumerable<WalksDetail>> GetWalkByDogIdAsync(int id)
         {
-            return await _db.Walking.Where(c => c.DogId == id).Select(c => new WalksDetail
+            return await _db.Walking.Include(w => w.Dog).Where(c => c.DogId == id).Select(c => new WalksDetail
             {
                 DogId = c.DogId,
                 DistanceWalked = c.DistanceWalked,
@@ -48,11 +48,34 @@ namespace Services.Walks
                 WalkerName = c.WalkerName,
                 OutsideTemp = c.OutsideTemp,
                 WalkStarted = c.WalkStarted,
-                WalkEnded = c.WalkEnded
+                WalkEnded = c.WalkEnded,
+                DogName = c.Dog.Name
 
             }).ToListAsync();
         }
 
+        public async Task<bool> UpdateWalkAsync(WalksUpdate req)
+            {
+                var entity = await _db.Walking.FindAsync(req.Id);
+                entity.Id = req.Id;
+                entity.DogId = req.DogId;
+                entity.DistanceWalked = req.DistanceWalked;
+                entity.Lattitude = req.Lattitude;
+                entity.Longitude = req.Longitude;
+                entity.WalkerName = req.WalkerName;
+                entity.OutsideTemp = req.OutsideTemp;
+                entity.WalkStarted = req.WalkStarted;
+                entity.WalkEnded = req.WalkEnded;
+            var numChanges = await _db.SaveChangesAsync();
+            return numChanges == 1;
+        }
 
+        public async Task<bool> DeleteWalkByIdAsync(int Id)
+        {
+            var walks = await _db.Walking.FindAsync(Id);
+            _db.Walking.Remove(walks);
+            var changed = await _db.SaveChangesAsync();
+            return changed == 1;
+        }
     }
 }

@@ -15,6 +15,7 @@ public class DogsEntity
         public int OwnerId { get; set; }
 
         public virtual UserEntity Owner{get;set;}
+        public virtual List<WalkingEntity> walks { get; set; } = new();
 
         [Required]
         [MaxLength(100)]

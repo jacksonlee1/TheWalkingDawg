@@ -19,7 +19,7 @@ public class DogService : IDogService
     {
         var entity = new DogsEntity
         {
-            OwnerID = model.OwnerID,
+            OwnerId = model.OwnerId,
             Name = model.Name,
             Breed = model.Breed
         };
@@ -35,7 +35,7 @@ public class DogService : IDogService
         var dogs = await _context.Dogs
         .Select(entity => new DogDetail
         {
-            OwnerID = entity.OwnerID,
+            OwnerId = entity.OwnerId,
             Name = entity.Name,
 
 

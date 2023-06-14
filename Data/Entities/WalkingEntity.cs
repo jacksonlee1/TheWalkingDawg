@@ -16,6 +16,8 @@ namespace Data.Entities
         [ForeignKey("Dogs")]
         public int DogId { get; set; }
 
+        public virtual DogsEntity Dog { get; set;}
+
         [Required]
         public double DistanceWalked { get; set; }
 
