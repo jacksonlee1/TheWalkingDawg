@@ -30,7 +30,6 @@ public class DogService : IDogService
     {
         var entity = new DogsEntity
         {
-            OwnerId = model.OwnerId,
             OwnerId = _userId,
             Name = model.Name,
             Breed = model.Breed,
@@ -66,9 +65,9 @@ public class DogService : IDogService
     }
     public async Task<IEnumerable<DogsEntity>>GetDogByOwnerIdAsync(int id)
     {
+        //returning the dog from db that matches with ownerId
         return await _context.Dogs.Where(d=>d.Id==id).ToListAsync();
     }
-
 
     //ToDo(Stretch): Get Dogs By Walking Time
      //ToDo(Stretch): Get Dogs By Walking Distance

@@ -44,7 +44,7 @@ public async Task<IActionResult>GetAllDogs()
     return Ok(dogs);
 }
 
-[HttpGet ("{id:int}")]//Get dog by ID
+[HttpGet ("{id:int}")]//Get dog by Id
 
 public async Task<IActionResult>GetById([FromRoute]int id)
 {
@@ -57,7 +57,34 @@ public async Task<IActionResult>GetById([FromRoute]int id)
     return Ok(dogDetail);
 }
 
-[HttpPut] //takes in the DogUpdate 
+[HttpGet]//Get dogs by user Id
+
+public async Task<IActionResult>GetDogsByCurrentUser()
+{
+    var dogByUser = await _dogService.GetDogsByCurrentUserAsync();
+
+    if(dogByUser is null)
+    {
+        return NotFound();
+    }
+    return Ok(dogByUser);
+}
+
+[HttpGet ("~/api/admin/dog/[int:id]")]//Get dog by Owner's Id
+
+public async Task<IActionResult>GetDogByOwnerId([FromRoute] int id)
+{
+    //getting the dogByOwner Id from the service
+    var dogByOwner = await _dogService.GetDogByOwnerIdAsync(id);
+
+    if(dogByOwner is null)
+    {
+        return NotFound();
+    }
+    return Ok(dogByOwner);
+}
+
+[HttpPut]//takes in the DogUpdate 
 
 public async Task<IActionResult> UpdateDogById([FromBody] DogUpdate request)
 {

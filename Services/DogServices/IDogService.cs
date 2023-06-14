@@ -13,6 +13,10 @@ public interface IDogService
 
     Task<DogsEntity> GetDogByIdAsync(int id);
 
+    Task<IEnumerable<DogsEntity>> GetDogByOwnerIdAsync(int id);
+
+    Task<IEnumerable<DogsEntity>> GetDogsByCurrentUserAsync();
+
     Task<bool> UpdateDogAsync(DogUpdate request);
 
     Task<bool> DeleteDogByIdAsync(int id);
