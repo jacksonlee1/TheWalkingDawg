@@ -84,6 +84,19 @@ public class DogController : ControllerBase
         return Ok(dogByOwner);
     }
 
+    [HttpGet("{WalkingTime:int}")]//Get dog by Walking Time
+
+    public async Task<IActionResult> GetDogsByWalkingTime([FromRoute] int WalkingTime)
+    {
+        var dogsByWalkingTime = await _dogService.GetDogsByWalkingTimeAsync(WalkingTime);
+
+        if (dogsByWalkingTime is null)
+        {
+            return NotFound();
+        }
+        return Ok(dogsByWalkingTime);
+    }
+
     [HttpPut]//takes in the DogUpdate 
 
     public async Task<IActionResult> UpdateDogById([FromBody] DogUpdate request)

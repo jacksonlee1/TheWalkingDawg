@@ -11,9 +11,11 @@ public interface IDogService
 
     Task<IEnumerable<DogDetail>> GetAllDogsAsync();
 
-    Task<DogsEntity> GetDogByIdAsync(int id);
+    Task<DogsEntity?> GetDogByIdAsync(int id);
 
     Task<IEnumerable<DogsEntity>> GetDogByOwnerIdAsync(int id);
+
+    Task<IEnumerable<DogsEntity>> GetDogsByWalkingTimeAsync(int WalkingTime);
 
     Task<IEnumerable<DogsEntity>> GetDogsByCurrentUserAsync();
 

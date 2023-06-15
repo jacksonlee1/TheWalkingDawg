@@ -70,9 +70,13 @@ public class DogService : IDogService
     }
 
     //ToDo(Stretch): Get Dogs By Walking Time
+    public async Task<IEnumerable<DogsEntity>> GetDogsByWalkingTimeAsync(int WalkingTime)
+    {
+        return await _context.Dogs.Where(d =>d.WalkingTime == WalkingTime).ToListAsync();
+    }
     //ToDo(Stretch): Get Dogs By Walking Distance
 
-    public async Task<DogsEntity> GetDogByIdAsync(int id)
+    public async Task<DogsEntity?> GetDogByIdAsync(int id)
     {
         return await _context.Dogs.FindAsync(id);
     }
