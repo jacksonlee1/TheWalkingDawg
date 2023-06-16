@@ -7,7 +7,7 @@ namespace WebAPI.Controllers;
 
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]")]//all endpoints in this controller will start with api/Dog
 
 
 public class DogController : ControllerBase
@@ -44,7 +44,7 @@ public class DogController : ControllerBase
         return Ok(dogs);
     }
 
-    [HttpGet("{id:int}")]//Get dog by Id
+    [HttpGet("{id}")]//Get dog by Id
 
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
@@ -57,7 +57,7 @@ public class DogController : ControllerBase
         return Ok(dogDetail);
     }
 
-    [HttpGet]//Get dogs by user Id
+    [HttpGet("Current/{id}")]//Get dogs by user Id  //not working right....
 
     public async Task<IActionResult> GetDogsByCurrentUser()
     {
@@ -70,7 +70,7 @@ public class DogController : ControllerBase
         return Ok(dogByUser);
     }
 
-    [HttpGet("~/api/admin/dog/[int:id]")]//Get dog by Owner's Id
+    [HttpGet("~/api/admin/dog/{id}")]//Get dog by Owner's Id
 
     public async Task<IActionResult> GetDogByOwnerId([FromRoute] int id)
     {
@@ -84,7 +84,7 @@ public class DogController : ControllerBase
         return Ok(dogByOwner);
     }
 
-    [HttpGet("{WalkingTime:int}")]//Get dog by Walking Time
+    [HttpGet("time/{WalkingTime}")]//Get dog by Walking Time
 
     public async Task<IActionResult> GetDogsByWalkingTime([FromRoute] int WalkingTime)
     {
@@ -110,7 +110,7 @@ public class DogController : ControllerBase
             : BadRequest("Dog could not be updated");
     }
 
-    [HttpDelete("{id:int}")] //Delete a dog
+    [HttpDelete("{id}")] //Delete a dog
     public async Task<IActionResult> DeleteDog([FromRoute] int id)
     {
         var dog = await _dogService.DeleteDogByIdAsync(id);
