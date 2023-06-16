@@ -1,16 +1,26 @@
 
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Models.Dogs;
 
 public class DogCreate
-
 {
-    public int OwnerId {get; set; }
+    //including model validation via Attributes because we are retrieving information from the user
+    [Required]
+    public int OwnerId { get; set; }
+
+    [Required]
+    [MaxLength(100)]
     public string? Name { get; set; }
+
+    [Required]
+    [MaxLength(100)]
     public string? Breed { get; set; }
 
-    public int ReqDistance{get;set;}  //since Not Null in table needed to include reqDistance and WalkingTime
+    [Required]
+    public int ReqDistance { get; set; }  //since Not Null in table needed to include reqDistance and WalkingTime
 
-    public int WalkingTime{get;set;}
-
+    [Required]
+    public int WalkingTime { get; set; }
 }
