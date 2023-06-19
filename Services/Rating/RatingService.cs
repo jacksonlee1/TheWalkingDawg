@@ -8,6 +8,7 @@ using Models.Rating;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Models.User;
 // dotnet add Services package Microsoft.AspNetCore.Http;
 namespace Services.Rating
 {
@@ -34,7 +35,8 @@ namespace Services.Rating
                 OwnerId = _userId,
                 WalkId = model.WalkId,
                 Score = model.Score,
-                Comment = model.Comment
+                Comment = model.Comment,
+                WalkerId = model.WalkerId
             };
             _db.Ratings.Add(entity);
             var numChanges =  await _db.SaveChangesAsync();
@@ -52,6 +54,7 @@ namespace Services.Rating
             return await _db.Ratings.Include(r=>r.Owner).Include(r=>r.Walker).Select(r => new RatingDetail
             {
                 Username = r.Owner.Username,
+                WalkerName = r.Walker.Username, 
                 WalkId = r.WalkId,
                 Score = r.Score,
                 Comment = r.Comment
@@ -104,6 +107,9 @@ namespace Services.Rating
             
         }
 
+    
+
+      
 
     }
 }

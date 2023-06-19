@@ -32,9 +32,14 @@ namespace Data
 
 
          modelBuilder.Entity<UserEntity>()
-         .HasMany<RatingEntity>(user=>user.Ratings)
+         .HasMany<RatingEntity>(user=>user.UserReviews)
          .WithOne(rating=>rating.Owner)
          .HasForeignKey(rating => rating.OwnerId);
+
+            modelBuilder.Entity<UserEntity>()
+         .HasMany<RatingEntity>(user=>user.Reviews)
+         .WithOne(rating=>rating.Walker)
+         .HasForeignKey(rating => rating.WalkerId);
 
         modelBuilder.Entity<UserEntity>()
         .HasMany<DogsEntity>(user => user.Dogs)
