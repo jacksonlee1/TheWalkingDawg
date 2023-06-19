@@ -39,7 +39,24 @@ namespace WebAPI.Controllers
             }
             return BadRequest("User could not be registered");
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers(){
+            var users = await _service.GetAllUsersAsync();
+            return Ok(users);
+        }
+
+        [HttpGet("Sort/Descending")]
+        public async Task<IActionResult> SortUsersDescending(){
+            var users = await _service.SortWalkersByAverageRating(true);
+            return Ok(users);
+        }
        
+         [HttpGet("Sort/Ascending")]
+        public async Task<IActionResult> SortUsersAscending(){
+            var users = await _service.SortWalkersByAverageRating(false);
+            return Ok(users);
+        }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById([FromRoute]int id){
