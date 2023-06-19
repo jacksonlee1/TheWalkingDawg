@@ -38,7 +38,7 @@ namespace WebAPI.Controllers
             return Ok(await _walksService.GetWalkByDogIdAsync(id));
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("~/api/[id:int]")]
         public async Task<IActionResult> DeleteWalk([FromRoute] int Id)
         {
             var walk = await _walksService.DeleteWalkByIdAsync(Id);
@@ -54,7 +54,6 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> UpdateWalk([FromRoute] int Id)
         {
             var update = await _walksService.UpdateWalkAsync(Id);
-
             if (!update)
             {
                 return BadRequest("Walk appointment wasn't able to update.");

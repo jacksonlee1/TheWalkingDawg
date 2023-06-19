@@ -19,7 +19,6 @@ public class DogService : IDogService
     {
         var entity = new DogsEntity
         {
-            OwnerId = model.OwnerId,
             OwnerId = _userId,
             Name = model.Name,
             Breed = model.Breed
