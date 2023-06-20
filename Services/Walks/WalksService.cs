@@ -151,7 +151,7 @@ public async Task<bool> EndWalkByIdAsync(int id)
                 entity.DistanceWalked = pos.DistanceWalked;
                 entity.Lattitude = pos.Lattitude;
                 entity.Longitude = pos.Longitude;
-                entity.WalkerName = pos.WalkerName;
+                entity.WalkerId = pos.WalkerId;
                 entity.OutsideTemp = pos.OutsideTemp;
                 entity.WalkStarted = pos.WalkStarted;
                 entity.WalkEnded = pos.WalkEnded;
