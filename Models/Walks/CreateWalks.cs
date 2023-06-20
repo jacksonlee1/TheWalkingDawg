@@ -25,7 +25,7 @@ namespace Models.Walks
 
         public int OutsideTemp { get; set; }
 
-        public DateTime WalkStarted { get; set; } = DateTime.UnixEpoch;
+        public DateTime WalkStarted { get; set; }
 
         public DateTime WalkEnded { get; set; }
     }

@@ -66,7 +66,7 @@ namespace Data
         public DbSet<UserEntity> Users { get; set; }
 
         public DbSet<DogsEntity> Dogs { get; set; }
-        public DbSet<WalkingEntity> Walking{get;set;}
+        public DbSet<WalkingEntity> Walks{get;set;}
 
         public DbSet<RatingEntity> Ratings { get; set; }
 

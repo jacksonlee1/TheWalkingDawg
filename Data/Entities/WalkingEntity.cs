@@ -22,10 +22,10 @@ namespace Data.Entities
         public double DistanceWalked { get; set; }
 
         [Required]
-        public double Lattitude { get; set; }
+        public double Lat { get; set; }
 
         [Required]
-        public double Longitude { get; set; }
+        public double Long { get; set; }
 
         [Required]
         public int? WalkerId { get; set; }
