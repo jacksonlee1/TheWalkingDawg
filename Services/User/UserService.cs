@@ -83,11 +83,9 @@ namespace Services.User
 
         }
 
-        public async Task<List<UserDetail>> SortWalkersByAverageRating(bool descending)
+        public async Task<IOrderedEnumerable<UserDetail>> SortWalkersByAverageRating(bool descending)
         {
-            var users = _db.Users.Include(u => u.Reviews);
-            if (descending)
-                return await _db.Users.Include(u => u.Reviews).OrderByDescending(u => u.Reviews).Select(u => new UserDetail
+            var users = await _db.Users.Include(u => u.Reviews).Select(u => new UserDetail
                 {
                     Username = u.Username,
                     AverageRating = u.AverageRating,
@@ -96,14 +94,9 @@ namespace Services.User
                     PhoneNum = u.PhoneNum
                 }).ToListAsync();
 
-            return await users.OrderBy(r => r.AverageRating).Select(u => new UserDetail
-            {
-                Username = u.Username,
-                AverageRating = u.AverageRating,
-                Name = u.Name,
-                Address = u.Address,
-                PhoneNum = u.PhoneNum
-            }).ToListAsync();
+                 return !descending?users.OrderBy(u=> u.AverageRating):users.OrderByDescending(u=> u.AverageRating);
+
+            
         }
 
 

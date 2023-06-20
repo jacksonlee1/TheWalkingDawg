@@ -12,7 +12,7 @@ namespace Services.User
         Task<bool> RegisterUserAsync(UserRegister model);
 
         Task<UserEntity> GetUserByIdAsync(int id);
-        Task<List<UserDetail>> SortWalkersByAverageRating(bool decending);
+        Task<IOrderedEnumerable<UserDetail>> SortWalkersByAverageRating(bool descending);
         Task<List<UserDetail>> GetAllUsersAsync();
     }
 }

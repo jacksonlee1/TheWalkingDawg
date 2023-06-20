@@ -17,16 +17,19 @@ CREATE TABLE [Dogs] (
   [SpecialRequests] NVARCHAR
 
 );
+-- ALTER TABLE dbo.Walks Drop column WalkerName
+-- ALTER TABLE dbo.Walks ADD column WalkerId int not null ForeignKey Refrences Users(id)
 GO
 CREATE TABLE [Walks] (
   [Id] int not null PRIMARY KEY IDENTITY(1,1),
   [DogId] int FOREIGN KEY REFERENCES Dogs(Id),
+  [WalkerId] int Foreign KEy REFERENCES Users(Id),
   [DistanceWalked] Float not null,
   [Lat] Float,
   [Long] Float,
   [WalkerName] NvarChar(100),
   [OutsideTemp] Int,
-  [WalkStarted] Datetime not null,
+  [WalkStarted] Datetime,
   [WalkEnded] Datetime
 );
 go
