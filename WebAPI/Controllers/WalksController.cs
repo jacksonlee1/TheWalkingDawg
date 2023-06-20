@@ -38,5 +38,36 @@ namespace WebAPI.Controllers
             if(!ModelState.IsValid) return BadRequest(ModelState);
             return Ok(await _walksService.GetWalkByDogIdAsync(id));
         }
+        [HttpGet]
+        public async Task<IActionResult> GetWalksByCurrentUser()
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            return Ok(await _walksService.GetWalksByCurrentIdAsync());
+        }
+        [HttpGet("Ongoing")]
+        public async Task<IActionResult> GetOngoingWalksByCurrentUser()
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            return Ok(await _walksService.GetOngoingWalksByCurrentIdAsync());
+        }
+
+        [HttpPut("Start/{id}")]
+        public async Task<IActionResult> StartWalk([FromRoute]int id)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+
+            var res = await _walksService.StartWalkByIdAsync(id);
+            if(res) return Ok();
+            return NotFound();
+        }
+        [HttpPut("End/{id}")]
+        public async Task<IActionResult> EndWalk([FromRoute]int id)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+
+            var res = await _walksService.StartWalkByIdAsync(id);
+            if(res) return Ok();
+            return NotFound();
+        }
     }
 }

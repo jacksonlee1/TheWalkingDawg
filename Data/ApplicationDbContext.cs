@@ -46,6 +46,12 @@ namespace Data
         .WithOne(dog => dog.Owner)
         .HasForeignKey(dog=>dog.OwnerId);
 
+        modelBuilder.Entity<UserEntity>()
+        .HasMany<WalkingEntity>(u=>u.Walks)
+        .WithOne(w => w.Walker)
+        .HasForeignKey(w=>w.WalkerId);
+        
+
         //  modelBuilder.Entity<RatingEntity>()
         //  .HasOne(r=> r.Walk)
         //  .WithMany(r=>r.Ratings)
@@ -60,7 +66,7 @@ namespace Data
         public DbSet<UserEntity> Users { get; set; }
 
         public DbSet<DogsEntity> Dogs { get; set; }
-         public DbSet<WalkingEntity> Walking{get;set;}
+        public DbSet<WalkingEntity> Walking{get;set;}
 
         public DbSet<RatingEntity> Ratings { get; set; }
 

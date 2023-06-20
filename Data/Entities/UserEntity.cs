@@ -46,5 +46,7 @@ namespace Data.Entities
 
         }}
         public virtual List<DogsEntity> Dogs {get; set;} =  new();
+
+        public virtual List<WalkingEntity> Walks {get; set;} =  new();
     }
 }
