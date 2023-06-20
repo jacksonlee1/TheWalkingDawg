@@ -56,7 +56,6 @@ namespace WebAPI.Controllers
             var users = await _service.SortWalkersByAverageRating(false);
             return Ok(users);
         }
-
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById([FromRoute]int id){
