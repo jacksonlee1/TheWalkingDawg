@@ -1,6 +1,8 @@
 
+using System.Security.Claims;
 using Data;
 using Data.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Models.Dogs;
 
@@ -9,9 +11,7 @@ namespace Services.DogServices;
 public class DogService : IDogService
 {
     private readonly ApplicationDbContext _context;
-    public DogService(ApplicationDbContext context)
-    {
-        _context = context;
+    private readonly int _userId;
     public DogService(IHttpContextAccessor httpContext, ApplicationDbContext context)
     {
         _context = context;
@@ -42,7 +42,7 @@ public class DogService : IDogService
 
     public async Task<IEnumerable<DogDetail>> GetAllDogsAsync()
     {
-        var dogs = await _context.Dogs
+    
         var dogs = await _context.Dogs.Include(d => d.Owner)
         .Select(entity => new DogDetail
         {
@@ -55,7 +55,7 @@ public class DogService : IDogService
         .ToListAsync();
         return dogs;
     }
-    }
+    
 
     public async Task<IEnumerable<DogsEntity>> GetDogsByCurrentUserAsync()
     {

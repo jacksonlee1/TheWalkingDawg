@@ -16,7 +16,7 @@ namespace Models.Walks
 
         public double Longitude { get; set; }
 
-        public string WalkerName { get; set; }
+        public int WalkerId { get; set; }
 
         public int OutsideTemp { get; set; }
 
@@ -24,6 +24,6 @@ namespace Models.Walks
 
         public DateTime WalkEnded { get; set; } 
 
-        public string DogName { get; set; }
+        public string? DogName { get; set; }
     }
 }
