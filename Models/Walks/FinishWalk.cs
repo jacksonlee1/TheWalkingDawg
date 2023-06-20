@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Models.Walks
 {
-    public class WalksUpdate
+    public class FinishWalk
     {
         public int Id { get; set; }
         public int DogId { get; set; }
@@ -16,7 +16,7 @@ namespace Models.Walks
 
         public double Longitude { get; set; }
 
-        public int? WalkerId { get; set; }
+        public int WalkerId { get; set; }
 
         public int OutsideTemp { get; set; }
 

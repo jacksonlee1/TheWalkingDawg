@@ -9,7 +9,7 @@ namespace Models.Rating
     {
         public int WalkId { get; set; }
         public string Username{get;set;}
-        public string WalkerUserName{get;set;}
+        public string WalkerName{get;set;}
         public double Score { get; set; }
         public string? Comment { get; set; }
     }
