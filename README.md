@@ -46,6 +46,41 @@ git clone https://github.com/jacksonlee1/TheWalkingDawg.git
 cd TheWalkingDawg
 ```
 
+3. Set up Docker
+
+```shell
+docker pull mcr.microsoft.com/azure-sql-edge
+```
+```shell
+docker run -e "ACCEPT_EULA=1" -e "MSSQL_SA_PASSWORD=[YOUR PASSWORD]" -e "MSSQL_PID=Developer" -e "MSSQL_USER=SA" -p 1433:1433 -d --name TheWalkingDawg mcr.microsoft.com/azure-sql-edge
+```
+4. Create TheWalkingDawg Database
+    ```Sql
+    Create Database TheWalkingDawg
+    ```
+5. Create Tables Using Create Tables.sql
+
+6. Initialize user secrets
+```shell
+dotnet user-secrets init --project WebAPI
+```
+7. Add connection string to user secrets
+```shell
+dotnet user-secrets set "ConnectionStrings:DefaultConnection": "[Your Connection String]" --project WebAPI
+``` 
+8. Add jwt key to user secrets 
+     ```shell
+        dotnet user-secrets set "Jwt:Key" "[YourSecretKey]",
+        dotnet user-secrets set "Jwt:Issuer":"localhostServer",
+        dotnet user-secrets set "Jwt:Audience": "localhostClient"
+      ```
+9. Run the project
+```shell
+dotnet run --project WebAPI
+``` 
+
+
+
 
 ## Usage
 (Here we will add some screen shots and provide further instruction. Users can reference this so know what can expect)
