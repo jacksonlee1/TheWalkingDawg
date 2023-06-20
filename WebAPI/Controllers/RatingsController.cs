@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
 
         }
 
-        
+
 
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] CreateRating model)
