@@ -77,8 +77,28 @@ namespace Services.Walks
             var changed = await _db.SaveChangesAsync();
             return changed == 1;
         }
+        public async Task<bool> FinishWalkByIdAsync(FinishWalk pos)
+        {
+                var entity = await _db.Walking.FindAsync(pos.Id);
+                entity.Id = pos.Id;
+                entity.DogId = pos.DogId;
+                entity.DistanceWalked = pos.DistanceWalked;
+                entity.Lattitude = pos.Lattitude;
+                entity.Longitude = pos.Longitude;
+                entity.WalkerName = pos.WalkerName;
+                entity.OutsideTemp = pos.OutsideTemp;
+                entity.WalkStarted = pos.WalkStarted;
+                entity.WalkEnded = pos.WalkEnded;
+            var numChanges = await _db.SaveChangesAsync();
+            return numChanges == 1;
+        }
 
         public Task<bool> UpdateWalkAsync(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> FinishWalkByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

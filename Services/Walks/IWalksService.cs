@@ -12,6 +12,6 @@ namespace Services.Walks
         Task<IEnumerable<WalksDetail>> GetWalkByDogIdAsync(int DogId);
         Task<bool> DeleteWalkByIdAsync(int Id);
         Task<bool> UpdateWalkAsync(int Id);
-
+        Task<bool> FinishWalkByIdAsync(int id);
     }
 }

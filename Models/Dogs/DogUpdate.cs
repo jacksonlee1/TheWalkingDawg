@@ -1,14 +1,13 @@
 
-
 using System.ComponentModel.DataAnnotations;
 
 namespace Models.Dogs;
 
-public class DogCreate
+public class DogUpdate
 {
-    //including model validation via Attributes because we are retrieving information from the user
+    //Same attributes as DogCreate model.  Difference is the added id
     [Required]
-    public int OwnerId { get; set; }
+    public int Id { get; set; }
 
     [Required]
     [MaxLength(100)]
@@ -19,7 +18,7 @@ public class DogCreate
     public string? Breed { get; set; }
 
     [Required]
-    public int ReqDistance { get; set; }  //since Not Null in table needed to include reqDistance and WalkingTime
+    public int ReqDistance { get; set; }
 
     [Required]
     public int WalkingTime { get; set; }

@@ -38,7 +38,7 @@ namespace WebAPI.Controllers
             return Ok(await _walksService.GetWalkByDogIdAsync(id));
         }
 
-        [HttpDelete("~/api/[id:int]")]
+        [HttpDelete("~/api/{id}")]
         public async Task<IActionResult> DeleteWalk([FromRoute] int Id)
         {
             var walk = await _walksService.DeleteWalkByIdAsync(Id);
@@ -60,5 +60,17 @@ namespace WebAPI.Controllers
             }
             return Ok();
         }
+
+        [HttpPost("~/api/user/{id}")]
+    public async Task<IActionResult> FinishWalk([FromRoute] int id)
+    {
+        var dog = await _walksService.FinishWalkByIdAsync(id);
+
+        if (!dog)
+        {
+            return BadRequest("Could not confirm walk finished.");
+        }
+        return Ok();
+    }
     }
 }
