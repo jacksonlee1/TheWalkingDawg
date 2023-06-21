@@ -24,7 +24,7 @@ namespace Services.Token
         _context = context;
         _configuration = configuration;
     }
-       public async Task<TokenResponse> GetTokenAsync(TokenRequest model)
+       public async Task<TokenResponse?> GetTokenAsync(TokenRequest model)
        {
         var userEntity = await GetValidUserAsync(model);
         if(userEntity is null){
@@ -32,7 +32,7 @@ namespace Services.Token
         return GenerateToken(userEntity);
        }
 
-       private async Task<UserEntity> GetValidUserAsync(TokenRequest model){
+       private async Task<UserEntity?> GetValidUserAsync(TokenRequest model){
             var entity = await _context.Users.FirstOrDefaultAsync(u => u.Username.ToLower() == model.Username.ToLower());
             if (entity is null){
                 Console.WriteLine("User not Found");

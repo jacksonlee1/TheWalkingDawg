@@ -10,7 +10,7 @@ namespace Services.Rating
     public interface IRatingService
     {
         Task<bool> NewRatingAsync(CreateRating model);
-        Task<RatingEntity> GetRatingByIdAsync(int id);
+        Task<RatingEntity?> GetRatingByIdAsync(int id);
         Task<List<RatingDetail>> GetRatingsAsync();
 
         Task<bool> DeleteRatingByIdAsync(int id);

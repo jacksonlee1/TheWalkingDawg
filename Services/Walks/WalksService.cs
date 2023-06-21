@@ -146,6 +146,7 @@ public async Task<bool> EndWalkByIdAsync(int id)
         public async Task<bool> FinishWalkByIdAsync(FinishWalk pos)
         {
                 var entity = await _db.Walks.FindAsync(pos.Id);
+                if(entity is null) return false;
                 entity.Id = pos.Id;
                 entity.DogId = pos.DogId;
                 entity.DistanceWalked = pos.DistanceWalked;

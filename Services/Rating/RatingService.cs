@@ -43,7 +43,7 @@ namespace Services.Rating
             return numChanges == 1;
 
         }
-        public async Task<RatingEntity> GetRatingByIdAsync(int id)
+        public async Task<RatingEntity?> GetRatingByIdAsync(int id)
         {
            return await _db.Ratings.Include(r=>r.Owner).FirstOrDefaultAsync(r=>r.Id == id);
 
@@ -64,6 +64,7 @@ namespace Services.Rating
         public async Task<bool> DeleteRatingByIdAsync(int id)
         {
             var entity = await _db.Ratings.FindAsync(id);
+            if(entity is null) return false;
             _db.Ratings.Remove(entity);
             var numChanges = await  _db.SaveChangesAsync();
             return numChanges == 1;
@@ -72,6 +73,7 @@ namespace Services.Rating
         public async Task<bool> UpdateRatingAsync(UpdateRating model)
         {
             var entity = await _db.Ratings.FindAsync(model.Id);
+            if(entity is null) return false;
             entity.Score = model.Score;
             entity.Comment = model.Comment;
 

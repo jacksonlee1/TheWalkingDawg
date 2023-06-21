@@ -12,19 +12,19 @@ namespace Data.Entities
         public int Id { get; set; }
 
         [Required]
-        public string Username { get; set; } 
+        public string Username { get; set; } = string.Empty;
 
         [Required]
-        public string Password { get; set; } 
+        public string Password { get; set; } = string.Empty;
 
         [Required]
-        public string PhoneNum { get; set; } 
+        public string PhoneNum { get; set; } = string.Empty;
 
         [Required]
-        public string Address { get; set; } 
+        public string Address { get; set; } = string.Empty;
 
         [Required]
-        public string Name {get;set;}        
+        public string Name {get;set;}   = string.Empty;     
         public virtual List<RatingEntity> UserReviews {get; set;} =  new();
       
         public virtual List<RatingEntity> Reviews {get; set;} =  new();
