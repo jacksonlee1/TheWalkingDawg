@@ -65,13 +65,13 @@ namespace WebAPI.Controllers
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            var res = await _walksService.StartWalkByIdAsync(id);
+            var res = await _walksService.EndWalkByIdAsync(id);
             if(res) return Ok();
             return NotFound();
         }
 
 
-        [HttpDelete("~/api/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWalk([FromRoute] int Id)
         {
             var walk = await _walksService.DeleteWalkByIdAsync(Id);

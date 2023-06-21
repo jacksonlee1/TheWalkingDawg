@@ -62,7 +62,8 @@ namespace Services.User
         {
 
             var entity = await _db.Users.FindAsync(req.Id);
-            // if (entity.UserId != _userId) return false;
+            if(entity is null) return false;
+            if (entity.Id != _userId) return false;
             entity.Username = req.Username;
             entity.Name = req.Name;
             entity.Address = req.Address;
@@ -75,9 +76,9 @@ namespace Services.User
         }
         public async Task<bool> DeleteUserByIdAsync(int id)
         {
-            var note = await _db.Users.FindAsync(id);
-
-            _db.Users.Remove(note);
+            var entity = await _db.Users.FindAsync(id);
+            if(entity is null )return false;
+            _db.Users.Remove(entity);
             var numChanges = await _db.SaveChangesAsync();
             return numChanges == 1;
 

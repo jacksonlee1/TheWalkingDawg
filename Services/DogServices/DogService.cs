@@ -82,7 +82,7 @@ public class DogService : IDogService
     public async Task<bool> UpdateDogAsync(DogUpdate request)
     {
         var entity = await _context.Dogs.FindAsync(request.Id);
-
+        if (entity is null) return false;
         //Updating the entity's properties
         entity.Name = request.Name;
         entity.Breed = request.Breed;
@@ -98,6 +98,7 @@ public class DogService : IDogService
     public async Task<bool> DeleteDogByIdAsync(int id)
     {
         var entity = await _context.Dogs.FindAsync(id);
+        if (entity is null) return false;
         _context.Dogs.Remove(entity);
 
         var numberOfChanges = await _context.SaveChangesAsync();

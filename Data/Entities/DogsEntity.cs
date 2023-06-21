@@ -13,7 +13,7 @@ public class DogsEntity
 
     [ForeignKey(nameof(Owner))]
     public int OwnerId { get; set; }
-    public virtual UserEntity Owner { get; set; }
+    public virtual UserEntity? Owner { get; set; }
     public virtual List<WalkingEntity> walks { get; set; } = new();
 
     [Required]

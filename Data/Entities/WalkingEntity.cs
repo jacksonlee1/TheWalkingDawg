@@ -16,16 +16,16 @@ namespace Data.Entities
         [ForeignKey("Dogs")]
         public int DogId { get; set; }
 
-        public virtual DogsEntity Dog { get; set;}
+        public virtual DogsEntity? Dog { get; set;}
 
         [Required]
         public double DistanceWalked { get; set; }
 
         [Required]
-        public double Lattitude { get; set; }
+        public double Lat { get; set; }
 
         [Required]
-        public double Longitude { get; set; }
+        public double Long { get; set; }
 
         [Required]
         public int? WalkerId { get; set; }
