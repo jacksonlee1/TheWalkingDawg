@@ -9,9 +9,6 @@ namespace Models.Walks
     public class CreateWalks
     {
         [Required]
-        public int DogId { get; set; }
-
-        [Required]
         public double DistanceWalked { get; set; }
 
         [Required]

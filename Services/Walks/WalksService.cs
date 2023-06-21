@@ -19,7 +19,7 @@ namespace Services.Walks
         public WalksService(IHttpContextAccessor httpContext,ApplicationDbContext db)
         {
             _db = db;
-             var userClaims = httpContext.HttpContext.User.Identity as ClaimsIdentity;
+            var userClaims = httpContext.HttpContext.User.Identity as ClaimsIdentity;
             var value = userClaims?.FindFirst("Id")?.Value;
             var validId = int.TryParse(value, out _userId);
             if (!validId)
@@ -32,7 +32,6 @@ namespace Services.Walks
         {
             var entity = new WalkingEntity
             {
-                DogId = model.DogId,
                 DistanceWalked = model.DistanceWalked,
                 Lattitude = model.Lattitude,
                 Longitude = model.Longitude,
@@ -131,7 +130,7 @@ public async Task<bool> EndWalkByIdAsync(int id)
             var entity = await _db.Walking.FindAsync(id);
                 if(entity is null) return false;
             entity.WalkEnded = DateTime.Now;
-             return await _db.SaveChangesAsync() == 1;
+            return await _db.SaveChangesAsync() == 1;
         } 
         public async Task<bool> StartWalkByIdAsync(int id)
         {
@@ -139,7 +138,7 @@ public async Task<bool> EndWalkByIdAsync(int id)
                 if(entity is null) return false;
             entity.WalkStarted = DateTime.Now;
             entity.DistanceWalked =0;
-             return await _db.SaveChangesAsync() == 1;
+            return await _db.SaveChangesAsync() == 1;
         } 
         
 
