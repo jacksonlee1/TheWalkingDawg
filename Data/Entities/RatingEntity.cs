@@ -22,7 +22,7 @@ namespace Data.Entities
         public int OwnerId {get; set;}
 
         // [ForeignKey("OwnerId")]
-          public virtual UserEntity Owner{get;set;}
+          public virtual UserEntity? Owner{get;set;}
        
         
         [Required]
@@ -32,7 +32,7 @@ namespace Data.Entities
 
         public int WalkerId{get;set;}
 
-        public virtual UserEntity Walker{get;set;}
+        public virtual UserEntity? Walker{get;set;}
         
 
     }
