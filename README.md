@@ -1,7 +1,7 @@
 # **The Walking Dawg App**
 
 
-Welcome to our Project. The Walking Dawg is an application designed to help connect dog owners with dog walkers. With this app, they would be able to easily set up an appointment to have their dog(s) walked. 
+Welcome to our Project. The Walking Dawg is an application designed to help connect dog owners with dog walkers. With this app, dog owners would be able to easily set up an appointment to have their dog(s) walked. 
 
 
  You might be wondering what led us to create The Walking Dawg app. Well, we are a team of three that are enrolled in a Software Development bootcamp through the [Eleven Fifty Academy](https://www.elevenfifty.org/). Our group project requirement was to come up with an idea for a .NET Framework API web application using n-tier architecture where each member of the team  had at least one custom data table that they were responsible for. This application is a complilation of all that we have learned in 10 weeks of this course.  Enjoy! 
@@ -78,16 +78,18 @@ dotnet user-secrets set "ConnectionStrings:DefaultConnection": "[Your Connection
 ```shell
 dotnet run --project WebAPI
 ``` 
+## Postman
 
+Fork Our Collection of Endpoints
 
-
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/27554791-532b7eb4-d202-482e-b072-b5e23eb24026?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D27554791-532b7eb4-d202-482e-b072-b5e23eb24026%26entityType%3Dcollection%26workspaceId%3D41e01c88-84e9-4186-8761-42946355b189)
 
 ## Usage
 (Here we will add some screen shots and provide further instruction. Users can reference this so know what can expect)
 
 ## Credits 
 
-AND here are the names of those responsible for creating The Walking Dawg application along with links to their personal github pages:
+AND here are the names of those responsible for creating The Walking Dawg application along with links to our personal github pages:
 
 
  - **Garrett Alderink**: https://github.com/galderink

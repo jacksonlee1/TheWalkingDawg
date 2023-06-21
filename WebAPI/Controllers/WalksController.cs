@@ -83,7 +83,7 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("{id:int}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateWalk([FromRoute] int Id)
         {
             var update = await _walksService.UpdateWalkAsync(Id);

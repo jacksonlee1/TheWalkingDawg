@@ -57,7 +57,7 @@ public class DogController : ControllerBase
         return Ok(dogDetail);
     }
 
-    [HttpGet("Current/{id}")]//Get dogs by user Id  //not working right....
+    [HttpGet("Current")]
 
     public async Task<IActionResult> GetDogsByCurrentUser()
     {

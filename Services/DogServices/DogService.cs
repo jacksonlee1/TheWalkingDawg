@@ -59,12 +59,12 @@ public class DogService : IDogService
 
     public async Task<IEnumerable<DogsEntity>> GetDogsByCurrentUserAsync()
     {
-        return await _context.Dogs.Where(d => d.Id == _userId).ToListAsync();
+        return await _context.Dogs.Where(d => d.OwnerId == _userId).ToListAsync();
     }
     public async Task<IEnumerable<DogsEntity>> GetDogByOwnerIdAsync(int id)
     {
         //returning the dog from db that matches with ownerId
-        return await _context.Dogs.Where(d => d.Id == id).ToListAsync();
+        return await _context.Dogs.Where(d => d.OwnerId == id).ToListAsync();
     }
 
     //ToDo(Stretch): Get Dogs By Walking Time
