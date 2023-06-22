@@ -32,7 +32,7 @@ namespace Services.Rating
         public async Task<bool> NewRatingAsync(CreateRating model)
         {
             var entity = new RatingEntity(){
-                OwnerId = _userId,
+                OwnerId=_userId,
                 WalkId = model.WalkId,
                 Score = model.Score,
                 Comment = model.Comment,
@@ -45,13 +45,14 @@ namespace Services.Rating
         }
         public async Task<RatingEntity?> GetRatingByIdAsync(int id)
         {
-           return await _db.Ratings.Include(r=>r.Owner).FirstOrDefaultAsync(r=>r.Id == id);
+           return await _db.Ratings.Include(r=>r.Walk).FirstOrDefaultAsync(r=>r.Id == id);
 
 
         }
         public async Task<List<RatingDetail>> GetRatingsAsync()
         {
-            return await _db.Ratings.Include(r=>r.Owner).Include(r=>r.Walker).Select(r => new RatingDetail
+            return await _db.Ratings.Include(r=>r.Walker).Include(r=>r.Owner).Select(r => 
+            new RatingDetail
             {
                 Username = r.Owner.Username,
                 WalkerName = r.Walker.Username, 
@@ -96,14 +97,17 @@ namespace Services.Rating
         }
 
 
+
+        //Removed Owner
           public async Task<IEnumerable<RatingDetail>?> GetRatingsByWalkId(int id)
         {
-            return  await _db.Ratings.Include(r=>r.Owner).Where(r => r.WalkId == id).Select(r => new RatingDetail
+            return  await _db.Ratings.Where(r => r.WalkId == id).Select(r => new RatingDetail
             {
+            
                 WalkId = r.WalkId,
                 Score = r.Score,
                 Comment = r.Comment,
-                Username = r.Owner.Username
+           
             }).ToListAsync();
 
             
