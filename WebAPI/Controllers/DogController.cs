@@ -1,3 +1,4 @@
+//Controllers handle HTTP requests.  DogController will handle any HTTP requests that pertains to Dog
 
 using Microsoft.AspNetCore.Mvc;
 using Models.Dogs;
@@ -13,7 +14,10 @@ namespace WebAPI.Controllers;
 public class DogController : ControllerBase
 {
 
+    //_dogService field added for the IDogService interface
+    //this is so the methods/endpoints can use the injected service
     private readonly IDogService _dogService;
+    //DogController constructor with IDogService parameter
     public DogController(IDogService dogService)
     {
         _dogService = dogService;
@@ -120,6 +124,5 @@ public class DogController : ControllerBase
             return BadRequest("Could not delete the dog.");
         }
         return Ok();
-
     }
 }

@@ -1,4 +1,4 @@
-
+//Models contain only information required to complete task
 
 using System.ComponentModel.DataAnnotations;
 

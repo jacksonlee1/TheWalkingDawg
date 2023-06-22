@@ -84,8 +84,6 @@ Fork Our Collection of Endpoints
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/27554791-532b7eb4-d202-482e-b072-b5e23eb24026?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D27554791-532b7eb4-d202-482e-b072-b5e23eb24026%26entityType%3Dcollection%26workspaceId%3D41e01c88-84e9-4186-8761-42946355b189)
 
-## Usage
-(Here we will add some screen shots and provide further instruction. Users can reference this so know what can expect)
 
 ## Credits 
 

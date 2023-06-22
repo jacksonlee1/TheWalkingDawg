@@ -1,3 +1,4 @@
+// Data manipulation occurs within Services (CRUD)
 
 using System.Security.Claims;
 using Data;
@@ -26,7 +27,7 @@ public class DogService : IDogService
     }
 
     public async Task<bool> CreateDogAsync(DogCreate model)
-    {
+    {   //declarting a new DogsEntity
         var entity = new DogsEntity
         {
             OwnerId = _userId,
@@ -42,7 +43,7 @@ public class DogService : IDogService
 
     public async Task<IEnumerable<DogDetail>> GetAllDogsAsync()
     {
-    
+
         var dogs = await _context.Dogs.Include(d => d.Owner)
         .Select(entity => new DogDetail
         {
@@ -55,7 +56,7 @@ public class DogService : IDogService
         .ToListAsync();
         return dogs;
     }
-    
+
 
     public async Task<IEnumerable<DogsEntity>> GetDogsByCurrentUserAsync()
     {
@@ -67,10 +68,9 @@ public class DogService : IDogService
         return await _context.Dogs.Where(d => d.OwnerId == id).ToListAsync();
     }
 
-    //ToDo(Stretch): Get Dogs By Walking Time
     public async Task<IEnumerable<DogsEntity>> GetDogsByWalkingTimeAsync(int WalkingTime)
     {
-        return await _context.Dogs.Where(d =>d.WalkingTime == WalkingTime).ToListAsync();
+        return await _context.Dogs.Where(d => d.WalkingTime == WalkingTime).ToListAsync();
     }
     //ToDo(Stretch): Get Dogs By Walking Distance
 
