@@ -129,6 +129,8 @@ namespace Services.Walks
             entity.WalkEnded = DateTime.Now;
             return await _db.SaveChangesAsync() == 1;
         }
+        
+        } 
         public async Task<bool> StartWalkByIdAsync(int id)
         {
             var entity = await _db.Walks.FindAsync(id);
@@ -139,6 +141,10 @@ namespace Services.Walks
             return await _db.SaveChangesAsync() == 1;
         }
 
+            entity.DistanceWalked =0;
+            return await _db.SaveChangesAsync() == 1;
+        } 
+        
 
         public async Task<bool> FinishWalkByIdAsync(FinishWalk pos)
         {
