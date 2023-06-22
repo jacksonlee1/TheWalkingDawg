@@ -24,14 +24,12 @@ public class DogController : ControllerBase
     }
 
     [HttpPost("Create")]// create a new dog entry
-
     public async Task<IActionResult> CreateDog([FromBody] DogCreate model)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-
         var createResult = await _dogService.CreateDogAsync(model);
         if (createResult)
         {
@@ -40,7 +38,7 @@ public class DogController : ControllerBase
         return BadRequest("New dog entry could not be created.");
     }
 
-    [HttpGet]//get all dogs
+    [HttpGet("All")]//get all dogs
 
     public async Task<IActionResult> GetAllDogs()
     {
@@ -49,11 +47,9 @@ public class DogController : ControllerBase
     }
 
     [HttpGet("{id}")]//Get dog by Id
-
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
         var dogDetail = await _dogService.GetDogByIdAsync(id);
-
         if (dogDetail is null)
         {
             return NotFound();
@@ -61,12 +57,12 @@ public class DogController : ControllerBase
         return Ok(dogDetail);
     }
 
-    [HttpGet("Current")]
+   
+    [HttpGet]
 
     public async Task<IActionResult> GetDogsByCurrentUser()
     {
         var dogByUser = await _dogService.GetDogsByCurrentUserAsync();
-
         if (dogByUser is null)
         {
             return NotFound();
@@ -75,12 +71,10 @@ public class DogController : ControllerBase
     }
 
     [HttpGet("~/api/admin/dog/{id}")]//Get dog by Owner's Id
-
     public async Task<IActionResult> GetDogByOwnerId([FromRoute] int id)
     {
         //getting the dogByOwner Id from the service
         var dogByOwner = await _dogService.GetDogByOwnerIdAsync(id);
-
         if (dogByOwner is null)
         {
             return NotFound();
@@ -89,7 +83,6 @@ public class DogController : ControllerBase
     }
 
     [HttpGet("time/{WalkingTime}")]//Get dog by Walking Time
-
     public async Task<IActionResult> GetDogsByWalkingTime([FromRoute] int WalkingTime)
     {
         var dogsByWalkingTime = await _dogService.GetDogsByWalkingTimeAsync(WalkingTime);
@@ -102,7 +95,6 @@ public class DogController : ControllerBase
     }
 
     [HttpPut]//takes in the DogUpdate 
-
     public async Task<IActionResult> UpdateDogById([FromBody] DogUpdate request)
     {
         //validating the model, if isn't valid returns the bad modelstate
@@ -118,7 +110,6 @@ public class DogController : ControllerBase
     public async Task<IActionResult> DeleteDog([FromRoute] int id)
     {
         var dog = await _dogService.DeleteDogByIdAsync(id);
-
         if (!dog)
         {
             return BadRequest("Could not delete the dog.");

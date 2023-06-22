@@ -16,12 +16,12 @@ namespace Data.Entities
         public int WalkId{get;set;}
 
 
-        //public WalkEntity Walk{get;set;}
+        public virtual WalkingEntity? Walk{get;set;}
 
         
         public int OwnerId {get; set;}
 
-        // [ForeignKey("OwnerId")]
+      
           public virtual UserEntity? Owner{get;set;}
        
         

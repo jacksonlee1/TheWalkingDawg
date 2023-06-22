@@ -10,7 +10,7 @@ using Services.Rating;
 
 namespace WebAPI.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class RatingsController : Controller
     {
         private readonly ILogger<RatingsController> _logger;
@@ -20,10 +20,7 @@ namespace WebAPI.Controllers
         {
             _logger = logger;
             _service = service;
-
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] CreateRating model)
@@ -39,13 +36,11 @@ namespace WebAPI.Controllers
             }
             return BadRequest("Could not leave rating");
         }
-        [HttpGet]
 
+        [HttpGet]
         public async Task<IActionResult> GetAllRatings()
         {
             return Ok( await _service.GetRatingsAsync());
-
         }
-
     }
 }
