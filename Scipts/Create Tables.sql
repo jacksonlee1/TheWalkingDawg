@@ -18,7 +18,7 @@ CREATE TABLE [Dogs] (
 
 );
 -- ALTER TABLE dbo.Walks Drop column WalkerName
--- ALTER TABLE dbo.Walks ADD column WalkerId int not null ForeignKey Refrences Users(id)
+-- ALTER TABLE dbo.Walks ADD column WalkerId int Foreign Key References Users(id)
 GO
 CREATE TABLE [Walks] (
   [Id] int not null PRIMARY KEY IDENTITY(1,1),
@@ -28,14 +28,14 @@ CREATE TABLE [Walks] (
   [Lat] Float,
   [Long] Float,
   [OutsideTemp] Int,
-  [WalkStarted] Datetime,
-  [WalkEnded] Datetime
+  [WalkStarted] Datetime2,
+  [WalkEnded] Datetime2
 );
 go
 CREATE TABLE [Ratings] (
   [Id] int not null PRIMARY KEY IDENTITY(1,1),
   [WalkId] int FOREIGN KEY REFERENCES Walks(Id),
-  [OwnerId] int FOREIGN KEY REFERENCES Users(Id),
+  
   [Score] Float not null,
   [Comment] NVarChar(1000),
   [WalkerId] int FOREIGN KEY REFERENCES Users(Id)

@@ -10,7 +10,7 @@ using Services.Rating;
 
 namespace WebAPI.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class RatingsController : Controller
     {
         private readonly ILogger<RatingsController> _logger;

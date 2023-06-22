@@ -25,5 +25,7 @@ namespace Models.Walks
 
         public string? DogName { get; set; }
         public int? WalkerId { get; set; }
+
+        public int WalkId{get;set;}
     }
 }

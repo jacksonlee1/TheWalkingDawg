@@ -34,9 +34,9 @@ namespace Data.Entities
 
         public int OutsideTemp { get; set; }
 
-        public DateTime WalkStarted { get; set; }
+        public DateTime WalkStarted { get; set; } = DateTime.UnixEpoch;
 
-        public DateTime WalkEnded { get; set; }
+        public DateTime WalkEnded { get; set; } = DateTime.UnixEpoch;
 
 
 

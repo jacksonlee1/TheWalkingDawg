@@ -45,10 +45,16 @@ namespace Services.Walks
 
         }
 
+
+         public async Task<WalkingEntity?> GetWalkByIdAsync(int id)
+        {
+            return await _db.Walks.Include(w => w.Dog).FirstOrDefaultAsync(c => c.Id == id);
+        }
         public async Task<IEnumerable<WalksDetail>> GetWalkByDogIdAsync(int id)
         {
             return await _db.Walks.Include(w => w.Dog).Where(c => c.DogId == id).Select(c => new WalksDetail
             {
+                WalkId = c.Id,
                 DogId = c.DogId,
                 DistanceWalked = c.DistanceWalked,
                 Lattitude = c.Lat,
@@ -72,6 +78,8 @@ namespace Services.Walks
             entity.Long = req.Longitude;
             entity.WalkerId = req.WalkerId;
             entity.OutsideTemp = req.OutsideTemp;
+            entity.WalkStarted = req.WalkStarted;
+            entity.WalkEnded = req.WalkEnded;
             var numChanges = await _db.SaveChangesAsync();
             return numChanges == 1;
         }
@@ -88,8 +96,11 @@ namespace Services.Walks
 
         public async Task<IEnumerable<WalksDetail>> GetWalksByCurrentIdAsync()
         {
-            return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Where(c => c.WalkStarted == DateTime.UnixEpoch).Select(c => new WalksDetail
+        
+            return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Select(c => new WalksDetail
             {
+
+                WalkId = c.Id,
                 DogId = c.DogId,
                 DistanceWalked = c.DistanceWalked,
                 Lattitude = c.Lat,
@@ -103,10 +114,49 @@ namespace Services.Walks
             }).ToListAsync();
         }
 
+
+         public async Task<IEnumerable<WalksDetail>> GetAvailableWalksByCurrentIdAsync()
+        {
+         
+            return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId&& c.WalkStarted == DateTime.UnixEpoch).Select(c => new WalksDetail
+            {
+
+                WalkId = c.Id,
+                DogId = c.DogId,
+                DistanceWalked = c.DistanceWalked,
+                Lattitude = c.Lat,
+                Longitude = c.Long,
+                WalkerId = c.WalkerId,
+                OutsideTemp = c.OutsideTemp,
+                WalkStarted = c.WalkStarted,
+                WalkEnded = c.WalkEnded,
+                DogName = c.Dog.Name
+
+            }).ToListAsync();
+        }
         public async Task<IEnumerable<WalksDetail>> GetOngoingWalksByCurrentIdAsync()
         {
-            return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Where(c => c.WalkStarted != DateTime.UnixEpoch).Select(c => new WalksDetail
+            return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Where(c => c.WalkStarted != DateTime.UnixEpoch && c.WalkEnded == DateTime.UnixEpoch).Select(c => new WalksDetail
             {
+                WalkId = c.Id,
+                DogId = c.DogId,
+                DistanceWalked = c.DistanceWalked,
+                Lattitude = c.Lat,
+                Longitude = c.Long,
+                WalkerId = c.WalkerId,
+                OutsideTemp = c.OutsideTemp,
+                WalkStarted = c.WalkStarted,
+                WalkEnded = c.WalkEnded,
+                DogName = c.Dog.Name
+
+            }).ToListAsync();
+        }
+
+ public async Task<IEnumerable<WalksDetail>> GetFinishedWalksByCurrentIdAsync()
+        {
+            return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Where(c => c.WalkEnded != DateTime.UnixEpoch).Select(c => new WalksDetail
+            {
+                WalkId = c.Id,
                 DogId = c.DogId,
                 DistanceWalked = c.DistanceWalked,
                 Lattitude = c.Lat,
@@ -129,49 +179,32 @@ namespace Services.Walks
             entity.WalkEnded = DateTime.Now;
             return await _db.SaveChangesAsync() == 1;
         }
-        
-        } 
         public async Task<bool> StartWalkByIdAsync(int id)
         {
             var entity = await _db.Walks.FindAsync(id);
             if (entity is null) return false;
             entity.WalkStarted = DateTime.Now;
-            Console.WriteLine(entity.WalkStarted);
             entity.DistanceWalked = 0;
             return await _db.SaveChangesAsync() == 1;
         }
 
-            entity.DistanceWalked =0;
-            return await _db.SaveChangesAsync() == 1;
-        } 
-        
 
-        public async Task<bool> FinishWalkByIdAsync(FinishWalk pos)
+        public async Task<bool> FinishWalkAsync(FinishWalk pos)
         {
             var entity = await _db.Walks.FindAsync(pos.Id);
             if (entity is null) return false;
             entity.Id = pos.Id;
-            entity.DogId = pos.DogId;
+            
             entity.DistanceWalked = pos.DistanceWalked;
             entity.Lat = pos.Lattitude;
             entity.Long = pos.Longitude;
-            entity.WalkerId = pos.WalkerId;
             entity.OutsideTemp = pos.OutsideTemp;
-            entity.WalkStarted = pos.WalkStarted;
-            entity.WalkEnded = pos.WalkEnded;
+            entity.WalkEnded =DateTime.Now;
             var numChanges = await _db.SaveChangesAsync();
             return numChanges == 1;
         }
 
-        public Task<bool> UpdateWalkAsync(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> FinishWalkByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+      
 
     }
 }

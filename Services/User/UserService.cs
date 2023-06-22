@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Data;
 using Data.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Models.User;
@@ -15,12 +17,17 @@ namespace Services.User
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _db;
-        private readonly int? _userId;
+        private readonly int _userId;
 
-        public UserService(ApplicationDbContext db)
+        public UserService(IHttpContextAccessor httpContext, ApplicationDbContext db)
         {
             _db = db;
-
+            var userClaims = httpContext.HttpContext.User.Identity as ClaimsIdentity;
+            var value = userClaims?.FindFirst("Id")?.Value;
+            var validId = int.TryParse(value, out _userId);
+            //UserIds start at 1, Cannot be null
+            if(!validId)_userId =0;
+        
         }
 
 
@@ -74,9 +81,37 @@ namespace Services.User
             var numChanges = await _db.SaveChangesAsync();
             return numChanges == 1;
         }
-        public async Task<bool> DeleteUserByIdAsync(int id)
+
+        public async Task<bool> UpdateCurrentUserAsync(UserUpdate req)
         {
+            if(_userId == 0)return false;
+            var entity = await _db.Users.FindAsync(_userId);
+            if(entity is null) return false;
+            if (entity.Id != _userId) return false;
+            entity.Username = req.Username;
+            entity.Name = req.Name;
+            entity.Address = req.Address;
+            entity.PhoneNum = req.PhoneNum;
+
+            var passwordHasher = new PasswordHasher<UserEntity>();
+            entity.Password = passwordHasher.HashPassword(entity, req.Password);
+            var numChanges = await _db.SaveChangesAsync();
+            return numChanges == 1;
+        }
+        public async Task<bool> DeleteUserByIdAsync(int id)
+        { 
             var entity = await _db.Users.FindAsync(id);
+            if(entity is null )return false;
+            _db.Users.Remove(entity);
+            var numChanges = await _db.SaveChangesAsync();
+            return numChanges == 1;
+
+        }
+
+          public async Task<bool> DeleteUserByCurrentUserAsync()
+        { 
+            if(_userId == 0) return false;
+            var entity = await _db.Users.FindAsync(_userId);
             if(entity is null )return false;
             _db.Users.Remove(entity);
             var numChanges = await _db.SaveChangesAsync();
@@ -88,6 +123,7 @@ namespace Services.User
         {
             var users = await _db.Users.Include(u => u.Reviews).Select(u => new UserDetail
                 {
+                    Id = u.Id,
                     Username = u.Username,
                     AverageRating = u.AverageRating,
                     Name = u.Name,
@@ -105,6 +141,7 @@ namespace Services.User
         {
             return await _db.Users.Include(u => u.Reviews).Select(u => new UserDetail
             {
+                Id=u.Id,
                 Username = u.Username,
                 AverageRating = u.AverageRating,
                 Name = u.Name,
