@@ -36,7 +36,7 @@ public class DogController : ControllerBase
         return BadRequest("New dog entry could not be created.");
     }
 
-    [HttpGet]//get all dogs
+    [HttpGet("All")]//get all dogs
 
     public async Task<IActionResult> GetAllDogs()
     {
@@ -57,7 +57,7 @@ public class DogController : ControllerBase
         return Ok(dogDetail);
     }
 
-    [HttpGet("Current/{id}")]//Get dogs by user Id  //not working right....
+    [HttpGet]//Get dogs by user Id  //not working right....
 
     public async Task<IActionResult> GetDogsByCurrentUser()
     {

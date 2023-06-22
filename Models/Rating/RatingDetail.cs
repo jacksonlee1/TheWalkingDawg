@@ -12,5 +12,6 @@ namespace Models.Rating
         public string WalkerName{get;set;} = string.Empty;
         public double Score { get; set; }
         public string? Comment { get; set; }
+        public int Id { get; set; }
     }
 }

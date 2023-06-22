@@ -65,6 +65,7 @@ namespace Services.Token
         var token = tokenHandler.CreateToken(tokenDescriptor);
         var tokenResponse = new TokenResponse
         {
+            UserId = entity.Id,
             Token = tokenHandler.WriteToken(token),
             IssuedAt = token.ValidFrom,
             Expires = token.ValidTo

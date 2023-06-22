@@ -9,6 +9,7 @@ using Services.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers
 {
@@ -18,11 +19,14 @@ namespace WebAPI.Controllers
     {
         private readonly IUserService _service;
         private readonly ITokenService _tokenService;
-        public UserController(IUserService service, ITokenService tokenService)
+        private readonly int _userId;
+        
+        public UserController(IHttpContextAccessor httpContext, IUserService service, ITokenService tokenService)
 
         {
             _service = service;
             _tokenService = tokenService;
+            
            
         }
         [HttpPost("Register")]
@@ -81,6 +85,38 @@ namespace WebAPI.Controllers
 
         }
 
-        // Todo Update and delete user
+
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody]UserUpdate req)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            var res = await _service.UpdateUserAsync(req);
+            return res?Ok("User Updated Sucessfully"):NotFound("Could not Update User");
+        }
+         [HttpPut("Update")]
+        public async Task<IActionResult> UpdateCurentUser([FromBody] UserUpdate req)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            var res = await _service.UpdateCurrentUserAsync(req);
+            return res?Ok("User Updated Sucessfully"):NotFound("Could not Update User");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser([FromRoute]int id)
+        {
+            var res = await _service.DeleteUserByIdAsync(id);
+            return res?Ok("User Deleted Sucessfully"):NotFound("Could not Delete User");
+        }
+
+         [HttpDelete]
+        public async Task<IActionResult> DeleteCurrentUser([FromRoute]int id)
+        {
+            
+            var res = await _service.DeleteUserByIdAsync(id);
+            return res?Ok("User Deleted Sucessfully"):NotFound("Could not Delete User");
+        
+        }
+
     }
 }

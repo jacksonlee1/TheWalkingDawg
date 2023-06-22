@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.Entities;
 using Models.Walks;
 
 namespace Services.Walks
@@ -15,11 +16,14 @@ namespace Services.Walks
         Task<bool> StartWalkByIdAsync(int id);
         Task<IEnumerable<WalksDetail>> GetWalksByCurrentIdAsync();
         Task<IEnumerable<WalksDetail>> GetOngoingWalksByCurrentIdAsync();
+        Task<IEnumerable<WalksDetail>> GetFinishedWalksByCurrentIdAsync();
         
 
         Task<bool> DeleteWalkByIdAsync(int Id);
-        Task<bool> UpdateWalkAsync(int Id);
-        Task<bool> FinishWalkByIdAsync(int id);
+        Task<bool> UpdateWalkAsync(WalksUpdate req);
+        Task<bool> FinishWalkAsync(FinishWalk req);
 
+      Task<WalkingEntity?> GetWalkByIdAsync(int id);
+      
     }
 }
