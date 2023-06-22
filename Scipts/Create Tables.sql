@@ -27,7 +27,6 @@ CREATE TABLE [Walks] (
   [DistanceWalked] Float not null,
   [Lat] Float,
   [Long] Float,
-  [WalkerName] NvarChar(100),
   [OutsideTemp] Int,
   [WalkStarted] Datetime,
   [WalkEnded] Datetime
