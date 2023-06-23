@@ -22,5 +22,4 @@ public interface IDogService
     Task<bool> UpdateDogAsync(DogUpdate request);
 
     Task<bool> DeleteDogByIdAsync(int id);
-    
 }

@@ -6,6 +6,7 @@ namespace Data.Entities;
 
 public class DogsEntity
 {
+    //These entities match the data table
     [Key]
     public int Id { get; set; }
 
