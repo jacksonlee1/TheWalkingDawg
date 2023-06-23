@@ -56,12 +56,12 @@ namespace Data
 
         }
 
-        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<UserEntity> Users { get; set; } = null!;
 
-        public DbSet<DogsEntity> Dogs { get; set; }
-        public DbSet<WalkingEntity> Walks{get;set;}
+        public DbSet<DogsEntity> Dogs { get; set; }= null!;
+        public DbSet<WalkingEntity> Walks{get;set;}= null!;
 
-        public DbSet<RatingEntity> Ratings { get; set; }
+        public DbSet<RatingEntity> Ratings { get; set; }= null!;
 
 
     }
