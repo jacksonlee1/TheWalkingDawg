@@ -40,11 +40,19 @@ namespace WebAPI.Controllers
             return BadRequest("User could not be registered");
         }
 
-        [HttpGet]
+        [HttpGet("All")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _service.GetAllUsersAsync();
             return Ok(users);
+        }
+        [HttpGet]
+
+        public async Task<IActionResult> GetCurrentUser()
+
+        {
+            var res = await _service.GetUserByCurrentUserAsync();
+            return (res != null)?Ok(res):NotFound("Could not find user");
         }
 
         [HttpGet("Sort/Descending")]

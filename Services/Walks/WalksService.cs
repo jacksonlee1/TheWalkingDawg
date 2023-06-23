@@ -37,6 +37,7 @@ namespace Services.Walks
                 Long = model.Longitude,
                 WalkerId = model.WalkerId,
                 OutsideTemp = model.OutsideTemp,
+                DogId = model.DogId
 
             };
             _db.Walks.Add(entity);
@@ -45,8 +46,13 @@ namespace Services.Walks
 
         }
 
+        public async Task<IEnumerable<WalkingEntity?>?> GetAllWalksAsync()
+        {
+            return await _db.Walks.Include(w => w.Dog).Include(w => w.Walker).ToListAsync();
+        }
 
-         public async Task<WalkingEntity?> GetWalkByIdAsync(int id)
+
+        public async Task<WalkingEntity?> GetWalkByIdAsync(int id)
         {
             return await _db.Walks.Include(w => w.Dog).FirstOrDefaultAsync(c => c.Id == id);
         }
@@ -63,7 +69,7 @@ namespace Services.Walks
                 OutsideTemp = c.OutsideTemp,
                 WalkStarted = c.WalkStarted,
                 WalkEnded = c.WalkEnded,
-                DogName = c.Dog.Name
+                DogName = (c.Dog == null) ? "Default" : c.Dog.Name
 
             }).ToListAsync();
         }
@@ -72,14 +78,13 @@ namespace Services.Walks
         {
             var entity = await _db.Walks.FindAsync(req.Id);
             if (entity is null) return false;
-            entity.DogId = req.DogId;
+
             entity.DistanceWalked = req.DistanceWalked;
             entity.Lat = req.Lattitude;
             entity.Long = req.Longitude;
-            entity.WalkerId = req.WalkerId;
+
             entity.OutsideTemp = req.OutsideTemp;
-            entity.WalkStarted = req.WalkStarted;
-            entity.WalkEnded = req.WalkEnded;
+
             var numChanges = await _db.SaveChangesAsync();
             return numChanges == 1;
         }
@@ -96,7 +101,7 @@ namespace Services.Walks
 
         public async Task<IEnumerable<WalksDetail>> GetWalksByCurrentIdAsync()
         {
-        
+
             return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Select(c => new WalksDetail
             {
 
@@ -109,16 +114,15 @@ namespace Services.Walks
                 OutsideTemp = c.OutsideTemp,
                 WalkStarted = c.WalkStarted,
                 WalkEnded = c.WalkEnded,
-                DogName = c.Dog.Name
-
+                DogName = (c.Dog == null) ? "Default" : c.Dog.Name
             }).ToListAsync();
         }
 
 
-         public async Task<IEnumerable<WalksDetail>> GetAvailableWalksByCurrentIdAsync()
+        public async Task<IEnumerable<WalksDetail>> GetAvailableWalksByCurrentIdAsync()
         {
-         
-            return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId&& c.WalkStarted == DateTime.UnixEpoch).Select(c => new WalksDetail
+
+            return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId && c.WalkStarted == DateTime.UnixEpoch).Select(c => new WalksDetail
             {
 
                 WalkId = c.Id,
@@ -130,10 +134,10 @@ namespace Services.Walks
                 OutsideTemp = c.OutsideTemp,
                 WalkStarted = c.WalkStarted,
                 WalkEnded = c.WalkEnded,
-                DogName = c.Dog.Name
-
+                DogName = (c.Dog == null) ? "Default" : c.Dog.Name
             }).ToListAsync();
         }
+
         public async Task<IEnumerable<WalksDetail>> GetOngoingWalksByCurrentIdAsync()
         {
             return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Where(c => c.WalkStarted != DateTime.UnixEpoch && c.WalkEnded == DateTime.UnixEpoch).Select(c => new WalksDetail
@@ -147,12 +151,11 @@ namespace Services.Walks
                 OutsideTemp = c.OutsideTemp,
                 WalkStarted = c.WalkStarted,
                 WalkEnded = c.WalkEnded,
-                DogName = c.Dog.Name
-
+                DogName = (c.Dog == null) ? "Default" : c.Dog.Name
             }).ToListAsync();
         }
 
- public async Task<IEnumerable<WalksDetail>> GetFinishedWalksByCurrentIdAsync()
+        public async Task<IEnumerable<WalksDetail>> GetFinishedWalksByCurrentIdAsync()
         {
             return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Where(c => c.WalkEnded != DateTime.UnixEpoch).Select(c => new WalksDetail
             {
@@ -165,8 +168,7 @@ namespace Services.Walks
                 OutsideTemp = c.OutsideTemp,
                 WalkStarted = c.WalkStarted,
                 WalkEnded = c.WalkEnded,
-                DogName = c.Dog.Name
-
+                DogName = (c.Dog == null) ? "Default" : c.Dog.Name
             }).ToListAsync();
         }
 
@@ -194,17 +196,17 @@ namespace Services.Walks
             var entity = await _db.Walks.FindAsync(pos.Id);
             if (entity is null) return false;
             entity.Id = pos.Id;
-            
+
             entity.DistanceWalked = pos.DistanceWalked;
             entity.Lat = pos.Lattitude;
             entity.Long = pos.Longitude;
             entity.OutsideTemp = pos.OutsideTemp;
-            entity.WalkEnded =DateTime.Now;
+            entity.WalkEnded = DateTime.Now;
             var numChanges = await _db.SaveChangesAsync();
             return numChanges == 1;
         }
 
-      
+
 
     }
 }

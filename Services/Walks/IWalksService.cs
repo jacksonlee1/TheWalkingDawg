@@ -16,6 +16,8 @@ namespace Services.Walks
         Task<IEnumerable<WalksDetail>> GetWalksByCurrentIdAsync();
         Task<IEnumerable<WalksDetail>> GetOngoingWalksByCurrentIdAsync();
         Task<IEnumerable<WalksDetail>> GetFinishedWalksByCurrentIdAsync();
+        Task<IEnumerable<WalksDetail>> GetAvailableWalksByCurrentIdAsync();
+        Task<IEnumerable<WalkingEntity?>?> GetAllWalksAsync();
         
 
         Task<bool> DeleteWalkByIdAsync(int Id);

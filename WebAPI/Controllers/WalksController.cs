@@ -50,7 +50,18 @@ namespace WebAPI.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             return Ok(await _walksService.GetWalksByCurrentIdAsync());
         }
-
+         [HttpGet("All")]
+        public async Task<IActionResult> GetAllWalks()
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            return Ok(await _walksService.GetAllWalksAsync());
+        }
+        [HttpGet("New")]
+        public async Task<IActionResult> GetNewWalksByCurrentUser()
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            return Ok(await _walksService.GetAvailableWalksByCurrentIdAsync());
+        }
         [HttpGet("Ongoing")]
         public async Task<IActionResult> GetOngoingWalksByCurrentUser()
         {
@@ -98,7 +109,7 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
-        [HttpPut("Finish/{id}")]
+        [HttpPut("Finish")]
     public async Task<IActionResult> FinishWalk([FromBody]FinishWalk req)
     {
         var dog = await _walksService.FinishWalkAsync(req);

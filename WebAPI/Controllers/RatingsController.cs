@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUser([FromBody] CreateRating model)
+        public async Task<IActionResult> CreateRating([FromBody] CreateRating model)
         {
             if (!ModelState.IsValid)
             {
@@ -42,5 +42,19 @@ namespace WebAPI.Controllers
         {
             return Ok( await _service.GetRatingsAsync());
         }
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteRatingById([FromRoute]int Id)
+        {
+            var res = await _service.DeleteRatingByIdAsync(Id);
+            return res?Ok("User Deleted Successfully"):NotFound("Could Not Find User with Id"+Id);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateRating([FromBody]UpdateRating req)
+        {
+             var res = await _service.UpdateRatingAsync(req);
+            return res?Ok("User Updated Successfully"):NotFound("Could Not Find Rating with Id"+req.Id);
+        }
+        
     }
 }

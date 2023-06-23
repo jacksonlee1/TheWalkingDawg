@@ -68,8 +68,8 @@ namespace Services.Rating
             new RatingDetail
             {
                 Id = r.Id,
-                Username = r.Owner.Username,
-                WalkerName = r.Walker.Username, 
+               Username = (r.Owner==null)?"default":r.Owner.Name,
+                WalkerName = (r.Walker==null)?"default":r.Walker.Name,
                 WalkId = r.WalkId,
                 Score = r.Score,
                 Comment = r.Comment
@@ -109,8 +109,8 @@ namespace Services.Rating
                 WalkId = r.WalkId,
                 Score = r.Score,
                 Comment = r.Comment,
-                Username = r.Owner.Name,
-                WalkerName = r.Walker.Name
+                Username = (r.Owner==null)?"default":r.Owner.Name,
+                WalkerName = (r.Walker==null)?"default":r.Walker.Name
 
                 
             }).ToListAsync();
@@ -129,8 +129,8 @@ namespace Services.Rating
                 WalkId = r.WalkId,
                 Score = r.Score,
                 Comment = r.Comment,
-                Username= r.Owner.Name,
-                WalkerName = r.Walker.Name
+                Username = (r.Owner==null)?"default":r.Owner.Name,
+                WalkerName = (r.Walker==null)?"default":r.Walker.Name
            
             }).ToListAsync();
 

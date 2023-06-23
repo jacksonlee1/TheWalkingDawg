@@ -119,6 +119,16 @@ namespace Services.User
 
         }
 
+          public async Task<UserEntity?> GetUserByCurrentUserAsync()
+        { 
+            if(_userId == 0) return null;
+            var entity = await _db.Users.FindAsync(_userId);
+            if(entity is null )return null;
+            
+            return entity;
+
+        }
+
         public async Task<IOrderedEnumerable<UserDetail>> SortWalkersByAverageRating(bool descending)
         {
             var users = await _db.Users.Include(u => u.Reviews).Select(u => new UserDetail

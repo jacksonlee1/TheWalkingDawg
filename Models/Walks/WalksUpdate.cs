@@ -8,22 +8,13 @@ namespace Models.Walks
     public class WalksUpdate
     {
         public int Id { get; set; }
-        public int DogId { get; set; }
 
         public double DistanceWalked { get; set; }
 
         public double Lattitude { get; set; }
 
         public double Longitude { get; set; }
-
-        public int? WalkerId { get; set; }
-
         public int OutsideTemp { get; set; }
 
-        public DateTime WalkStarted { get; set; }
-
-        public DateTime WalkEnded { get; set; } 
-
-        public string? DogName { get; set; }
     }
 }

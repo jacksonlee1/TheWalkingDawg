@@ -48,13 +48,13 @@ namespace Services.Token
        }
        private TokenResponse GenerateToken(UserEntity entity){
         var claims = GetClaims(entity);
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration?["Jwt:Key"]??"none"));
         var credentials = new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha256);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Issuer = _configuration["Jwt:Issuer"],
-            Audience = _configuration["Jwt:Audience"],
+            Issuer = _configuration?["Jwt:Issuer"]??"none",
+            Audience = _configuration?["Jwt:Audience"]??"none",
             Subject = new ClaimsIdentity(claims),
             IssuedAt = DateTime.UtcNow,
             Expires = DateTime.UtcNow.AddDays(14),

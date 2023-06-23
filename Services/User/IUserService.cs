@@ -17,6 +17,7 @@ namespace Services.User
         Task<bool> DeleteUserByIdAsync(int id);
         Task<bool> UpdateUserAsync(UserUpdate req);
         Task<bool> UpdateCurrentUserAsync(UserUpdate req);
+        Task<UserEntity?> GetUserByCurrentUserAsync();
       
     }
 }
