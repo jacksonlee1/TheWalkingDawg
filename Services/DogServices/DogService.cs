@@ -35,12 +35,12 @@ public class DogService : IDogService
             Breed = model.Breed
         };
 
-        _context.Dogs.Add(entity);
+        _context.Dogs.Add(entity); //adding entity to the Dogs table
         var numberOfChanges = await _context.SaveChangesAsync();
 
         return numberOfChanges == 1;
     }
-
+    //Task->using async code, IEnumerable->to be less specific about collection type, DogDetail->Model created that want to be returning
     public async Task<IEnumerable<DogDetail>> GetAllDogsAsync()
     {
 
