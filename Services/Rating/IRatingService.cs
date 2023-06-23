@@ -12,14 +12,9 @@ namespace Services.Rating
         Task<bool> NewRatingAsync(CreateRating model);
         Task<RatingEntity?> GetRatingByIdAsync(int id);
         Task<List<RatingDetail>> GetRatingsAsync();
-
         Task<bool> DeleteRatingByIdAsync(int id);
         Task<bool> UpdateRatingAsync(UpdateRating model);
-
         Task<IEnumerable<RatingDetail>?> GetRatingsByUserId(int id);
-
         Task<IEnumerable<RatingDetail>?> GetRatingsByWalkId(int id);
-
-
     }
 }

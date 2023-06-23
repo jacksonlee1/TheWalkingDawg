@@ -11,27 +11,15 @@ namespace Data.Entities
     {
         [Key]
         public int Id {get;set;}
-
         [ForeignKey("Walks")]
         public int WalkId{get;set;}
-
-
         public virtual WalkingEntity? Walk{get;set;}
-
-        
         public int OwnerId {get; set;}
-
-      
           public virtual UserEntity? Owner{get;set;}
-       
-        
         [Required]
         public double Score{get;set;}
-
         public string? Comment{get;set;}
-
         public int WalkerId{get;set;}
-
         public virtual UserEntity? Walker{get;set;}
         
 

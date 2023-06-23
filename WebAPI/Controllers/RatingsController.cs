@@ -15,13 +15,11 @@ namespace WebAPI.Controllers
     {
         private readonly ILogger<RatingsController> _logger;
         private readonly IRatingService _service;
-
         public RatingsController(ILogger<RatingsController> logger, IRatingService service)
         {
             _logger = logger;
             _service = service;
         }
-
         [HttpPost]
         public async Task<IActionResult> CreateRating([FromBody] CreateRating model)
         {
@@ -36,25 +34,22 @@ namespace WebAPI.Controllers
             }
             return BadRequest("Could not leave rating");
         }
-
         [HttpGet]
         public async Task<IActionResult> GetAllRatings()
         {
-            return Ok( await _service.GetRatingsAsync());
+            return Ok(await _service.GetRatingsAsync());
         }
         [HttpDelete("{Id}")]
-        public async Task<IActionResult> DeleteRatingById([FromRoute]int Id)
+        public async Task<IActionResult> DeleteRatingById([FromRoute] int Id)
         {
             var res = await _service.DeleteRatingByIdAsync(Id);
-            return res?Ok("User Deleted Successfully"):NotFound("Could Not Find User with Id"+Id);
+            return res ? Ok("User Deleted Successfully") : NotFound("Could Not Find User with Id" + Id);
         }
-
         [HttpPut]
-        public async Task<IActionResult> UpdateRating([FromBody]UpdateRating req)
+        public async Task<IActionResult> UpdateRating([FromBody] UpdateRating req)
         {
-             var res = await _service.UpdateRatingAsync(req);
-            return res?Ok("User Updated Successfully"):NotFound("Could Not Find Rating with Id"+req.Id);
+            var res = await _service.UpdateRatingAsync(req);
+            return res ? Ok("User Updated Successfully") : NotFound("Could Not Find Rating with Id" + req.Id);
         }
-        
     }
 }

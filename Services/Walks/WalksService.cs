@@ -15,7 +15,6 @@ namespace Services.Walks
     {
         private readonly ApplicationDbContext _db;
         private readonly int _userId;
-
         public WalksService(IHttpContextAccessor httpContext, ApplicationDbContext db)
         {
             _db = db;
@@ -27,7 +26,6 @@ namespace Services.Walks
                 throw new Exception("Attempted to build RatingService without User Id Claim");
             }
         }
-
         public async Task<bool> NewWalkAsync(CreateWalks model)
         {
             var entity = new WalkingEntity
@@ -38,20 +36,15 @@ namespace Services.Walks
                 WalkerId = model.WalkerId,
                 OutsideTemp = model.OutsideTemp,
                 DogId = model.DogId
-
             };
             _db.Walks.Add(entity);
             var changes = await _db.SaveChangesAsync();
             return changes == 1;
-
         }
-
         public async Task<IEnumerable<WalkingEntity?>?> GetAllWalksAsync()
         {
             return await _db.Walks.Include(w => w.Dog).Include(w => w.Walker).ToListAsync();
         }
-
-
         public async Task<WalkingEntity?> GetWalkByIdAsync(int id)
         {
             return await _db.Walks.Include(w => w.Dog).FirstOrDefaultAsync(c => c.Id == id);
@@ -70,25 +63,19 @@ namespace Services.Walks
                 WalkStarted = c.WalkStarted,
                 WalkEnded = c.WalkEnded,
                 DogName = (c.Dog == null) ? "Default" : c.Dog.Name
-
             }).ToListAsync();
         }
-
         public async Task<bool> UpdateWalkAsync(WalksUpdate req)
         {
             var entity = await _db.Walks.FindAsync(req.Id);
             if (entity is null) return false;
-
             entity.DistanceWalked = req.DistanceWalked;
             entity.Lat = req.Lattitude;
             entity.Long = req.Longitude;
-
             entity.OutsideTemp = req.OutsideTemp;
-
             var numChanges = await _db.SaveChangesAsync();
             return numChanges == 1;
         }
-
         public async Task<bool> DeleteWalkByIdAsync(int Id)
         {
             var walks = await _db.Walks.FindAsync(Id);
@@ -97,14 +84,10 @@ namespace Services.Walks
             var changed = await _db.SaveChangesAsync();
             return changed == 1;
         }
-
-
         public async Task<IEnumerable<WalksDetail>> GetWalksByCurrentIdAsync()
         {
-
             return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Select(c => new WalksDetail
             {
-
                 WalkId = c.Id,
                 DogId = c.DogId,
                 DistanceWalked = c.DistanceWalked,
@@ -117,14 +100,10 @@ namespace Services.Walks
                 DogName = (c.Dog == null) ? "Default" : c.Dog.Name
             }).ToListAsync();
         }
-
-
         public async Task<IEnumerable<WalksDetail>> GetAvailableWalksByCurrentIdAsync()
         {
-
             return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId && c.WalkStarted == DateTime.UnixEpoch).Select(c => new WalksDetail
             {
-
                 WalkId = c.Id,
                 DogId = c.DogId,
                 DistanceWalked = c.DistanceWalked,
@@ -137,7 +116,6 @@ namespace Services.Walks
                 DogName = (c.Dog == null) ? "Default" : c.Dog.Name
             }).ToListAsync();
         }
-
         public async Task<IEnumerable<WalksDetail>> GetOngoingWalksByCurrentIdAsync()
         {
             return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Where(c => c.WalkStarted != DateTime.UnixEpoch && c.WalkEnded == DateTime.UnixEpoch).Select(c => new WalksDetail
@@ -154,7 +132,6 @@ namespace Services.Walks
                 DogName = (c.Dog == null) ? "Default" : c.Dog.Name
             }).ToListAsync();
         }
-
         public async Task<IEnumerable<WalksDetail>> GetFinishedWalksByCurrentIdAsync()
         {
             return await _db.Walks.Include(w => w.Dog).Where(c => c.WalkerId == _userId).Where(c => c.WalkEnded != DateTime.UnixEpoch).Select(c => new WalksDetail
@@ -171,9 +148,6 @@ namespace Services.Walks
                 DogName = (c.Dog == null) ? "Default" : c.Dog.Name
             }).ToListAsync();
         }
-
-
-
         public async Task<bool> EndWalkByIdAsync(int id)
         {
             var entity = await _db.Walks.FindAsync(id);
@@ -189,14 +163,11 @@ namespace Services.Walks
             entity.DistanceWalked = 0;
             return await _db.SaveChangesAsync() == 1;
         }
-
-
         public async Task<bool> FinishWalkAsync(FinishWalk pos)
         {
             var entity = await _db.Walks.FindAsync(pos.Id);
             if (entity is null) return false;
             entity.Id = pos.Id;
-
             entity.DistanceWalked = pos.DistanceWalked;
             entity.Lat = pos.Lattitude;
             entity.Long = pos.Longitude;
@@ -205,8 +176,5 @@ namespace Services.Walks
             var numChanges = await _db.SaveChangesAsync();
             return numChanges == 1;
         }
-
-
-
     }
 }

@@ -51,7 +51,7 @@ public class DogService : IDogService
             Id = entity.Id,
             Name = entity.Name,
             Breed = entity.Breed,
-            Username = (entity.Owner == null)?"default":entity.Owner.Username
+            Username = (entity.Owner == null) ? "default" : entity.Owner.Username
         })
         .ToListAsync();
         return dogs;
@@ -73,7 +73,6 @@ public class DogService : IDogService
         return await _context.Dogs.Where(d => d.WalkingTime == WalkingTime).ToListAsync();
     }
     //ToDo(Stretch): Get Dogs By Walking Distance
-
     public async Task<DogsEntity?> GetDogByIdAsync(int id)
     {
         return await _context.Dogs.FindAsync(id);
@@ -94,7 +93,6 @@ public class DogService : IDogService
 
         return numberOfChanges == 1;
     }
-
     public async Task<bool> DeleteDogByIdAsync(int id)
     {
         var entity = await _context.Dogs.FindAsync(id);

@@ -11,34 +11,21 @@ namespace Data.Entities
     {
         [Required]
         public int Id { get; set; }
-
         [Required]
         [ForeignKey("Dogs")]
         public int DogId { get; set; }
-
         public virtual DogsEntity? Dog { get; set;}
-
         [Required]
         public double DistanceWalked { get; set; }
-
         [Required]
         public double Lat { get; set; }
-
         [Required]
         public double Long { get; set; }
-
         [Required]
-        public int? WalkerId { get; set; }
-        
+        public int? WalkerId { get; set; }        
         public UserEntity? Walker{get;set;}
-
         public int OutsideTemp { get; set; }
-
         public DateTime WalkStarted { get; set; } = DateTime.UnixEpoch;
-
         public DateTime WalkEnded { get; set; } = DateTime.UnixEpoch;
-
-
-
     }
 }

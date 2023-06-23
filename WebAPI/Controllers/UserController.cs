@@ -24,7 +24,6 @@ namespace WebAPI.Controllers
             _service = service;
             _tokenService = tokenService;
         }
-
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegister user)
         {
@@ -39,7 +38,6 @@ namespace WebAPI.Controllers
             }
             return BadRequest("User could not be registered");
         }
-
         [HttpGet("All")]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -47,28 +45,23 @@ namespace WebAPI.Controllers
             return Ok(users);
         }
         [HttpGet]
-
         public async Task<IActionResult> GetCurrentUser()
-
         {
             var res = await _service.GetUserByCurrentUserAsync();
             return (res != null)?Ok(res):NotFound("Could not find user");
         }
-
         [HttpGet("Sort/Descending")]
         public async Task<IActionResult> SortUsersDescending()
         {
             var users = await _service.SortWalkersByAverageRating(true);
             return Ok(users);
         }
-
         [HttpGet("Sort/Ascending")]
         public async Task<IActionResult> SortUsersAscending()
         {
             var users = await _service.SortWalkersByAverageRating(false);
             return Ok(users);
         }
-
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
@@ -80,7 +73,6 @@ namespace WebAPI.Controllers
             }
             return NotFound("User Not Found");
         }
-
         [HttpPost("~/api/Token")]
         public async Task<IActionResult> Token([FromBody] TokenRequest request)
         {
@@ -93,9 +85,6 @@ namespace WebAPI.Controllers
                 return BadRequest("Invalid Username or Password");
             return Ok(tokenResponse);
         }
-
-
-
         [HttpPut]
         public async Task<IActionResult> UpdateUser([FromBody]UserUpdate req)
         {
@@ -110,22 +99,17 @@ namespace WebAPI.Controllers
             var res = await _service.UpdateCurrentUserAsync(req);
             return res?Ok("User Updated Sucessfully"):NotFound("Could not Update User");
         }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute]int id)
         {
             var res = await _service.DeleteUserByIdAsync(id);
             return res?Ok("User Deleted Sucessfully"):NotFound("Could not Delete User");
         }
-
          [HttpDelete]
         public async Task<IActionResult> DeleteCurrentUser([FromRoute]int id)
-        {
-            
+        { 
             var res = await _service.DeleteUserByIdAsync(id);
             return res?Ok("User Deleted Sucessfully"):NotFound("Could not Delete User");
-        
         }
-
     }
 }

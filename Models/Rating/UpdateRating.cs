@@ -9,7 +9,6 @@ namespace Models.Rating
     {
         public int Id { get; set; }
         public double Score { get; set; }
-
         public string? Comment { get; set; }
     }
 }

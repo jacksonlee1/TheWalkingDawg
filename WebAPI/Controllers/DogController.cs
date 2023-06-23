@@ -5,15 +5,10 @@ using Models.Dogs;
 using Services.DogServices;
 
 namespace WebAPI.Controllers;
-
-
 [ApiController]
 [Route("api/[controller]")]//all endpoints in this controller will start with api/Dog
-
-
 public class DogController : ControllerBase
 {
-
     //_dogService field added for the IDogService interface
     //this is so the methods/endpoints can use the injected service
     private readonly IDogService _dogService;
@@ -22,7 +17,6 @@ public class DogController : ControllerBase
     {
         _dogService = dogService;
     }
-
     [HttpPost("Create")]// create a new dog entry
     public async Task<IActionResult> CreateDog([FromBody] DogCreate model)
     {
@@ -37,15 +31,12 @@ public class DogController : ControllerBase
         }
         return BadRequest("New dog entry could not be created.");
     }
-
     [HttpGet("All")]//get all dogs
-
     public async Task<IActionResult> GetAllDogs()
     {
         var dogs = await _dogService.GetAllDogsAsync();
         return Ok(dogs);
     }
-
     [HttpGet("{id}")]//Get dog by Id
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
@@ -56,10 +47,7 @@ public class DogController : ControllerBase
         }
         return Ok(dogDetail);
     }
-
-   
     [HttpGet]
-
     public async Task<IActionResult> GetDogsByCurrentUser()
     {
         var dogByUser = await _dogService.GetDogsByCurrentUserAsync();
@@ -69,7 +57,6 @@ public class DogController : ControllerBase
         }
         return Ok(dogByUser);
     }
-
     [HttpGet("~/api/admin/dog/{id}")]//Get dog by Owner's Id
     public async Task<IActionResult> GetDogByOwnerId([FromRoute] int id)
     {
@@ -81,19 +68,16 @@ public class DogController : ControllerBase
         }
         return Ok(dogByOwner);
     }
-
     [HttpGet("time/{WalkingTime}")]//Get dog by Walking Time
     public async Task<IActionResult> GetDogsByWalkingTime([FromRoute] int WalkingTime)
     {
         var dogsByWalkingTime = await _dogService.GetDogsByWalkingTimeAsync(WalkingTime);
-
         if (dogsByWalkingTime is null)
         {
             return NotFound();
         }
         return Ok(dogsByWalkingTime);
     }
-
     [HttpPut]//takes in the DogUpdate 
     public async Task<IActionResult> UpdateDogById([FromBody] DogUpdate request)
     {
@@ -105,7 +89,6 @@ public class DogController : ControllerBase
             ? Ok("Dog updated successfully.")
             : BadRequest("Dog could not be updated");
     }
-
     [HttpDelete("{id}")] //Delete a dog
     public async Task<IActionResult> DeleteDog([FromRoute] int id)
     {

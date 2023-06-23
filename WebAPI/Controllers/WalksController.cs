@@ -20,37 +20,33 @@ namespace WebAPI.Controllers
             _db = db;
             _walksService = walksService;
         }
-
         [HttpPost]
         public async Task<IActionResult> NewWalk([FromBody] CreateWalks req)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-
             var res = await _walksService.NewWalkAsync(req);
             if (res) return Ok();
             return BadRequest();
         }
-
         [HttpGet("dog/{id}")]
         public async Task<IActionResult> GetWalkByDogId([FromRoute] int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             return Ok(await _walksService.GetWalkByDogIdAsync(id));
         }
-          [HttpGet("{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetWalkById([FromRoute] int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             return Ok(await _walksService.GetWalkByIdAsync(id));
         }
-
         [HttpGet]
         public async Task<IActionResult> GetWalksByCurrentUser()
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             return Ok(await _walksService.GetWalksByCurrentIdAsync());
         }
-         [HttpGet("All")]
+        [HttpGet("All")]
         public async Task<IActionResult> GetAllWalks()
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -68,13 +64,12 @@ namespace WebAPI.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             return Ok(await _walksService.GetOngoingWalksByCurrentIdAsync());
         }
-         [HttpGet("Finished")]
+        [HttpGet("Finished")]
         public async Task<IActionResult> GetFinishedWalks()
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
             return Ok(await _walksService.GetFinishedWalksByCurrentIdAsync());
         }
-
         [HttpPut("Start/{id}")]
         public async Task<IActionResult> StartWalk([FromRoute] int id)
         {
@@ -83,10 +78,6 @@ namespace WebAPI.Controllers
             if (res) return Ok();
             return NotFound();
         }
-       
-       
-
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWalk([FromRoute] int Id)
         {
@@ -97,7 +88,6 @@ namespace WebAPI.Controllers
             }
             return Ok();
         }
-
         [HttpPut]
         public async Task<IActionResult> UpdateWalk([FromBody] WalksUpdate req)
         {
@@ -108,15 +98,12 @@ namespace WebAPI.Controllers
             }
             return Ok();
         }
-
         [HttpPut("Finish")]
-    public async Task<IActionResult> FinishWalk([FromBody]FinishWalk req)
-    {
-        var dog = await _walksService.FinishWalkAsync(req);
-
-        if (!dog)
+        public async Task<IActionResult> FinishWalk([FromBody] FinishWalk req)
         {
-
+            var dog = await _walksService.FinishWalkAsync(req);
+            if (!dog)
+            {
                 return BadRequest("Could not confirm walk finished.");
             }
             return Ok();

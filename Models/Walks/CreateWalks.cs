@@ -25,6 +25,7 @@ namespace Models.Walks
         public DateTime WalkStarted { get; set; }
 
         public DateTime WalkEnded { get; set; }
+        
         public int DogId{get;set;}
     }
 }
